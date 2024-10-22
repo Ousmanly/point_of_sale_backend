@@ -1,0 +1,126 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+enum Role {
+  ADMIN
+  CAISSIER
+}
+model User {
+  id   Int      @id @default(autoincrement())
+  name      String   @db.VarChar(250)
+  pass_word String   @db.VarChar(100)
+  role      Role     @default(CAISSIER)
+  email     String   @unique @db.VarChar(250)
+
+  Product   Product[]
+  Sale      Sale[]
+  Reception Reception[]
+  Inventory Inventory[]
+  StockMouvement StockMouvement[]
+}
+
+model Supplier {
+  id Int    @id @default(autoincrement())
+  name        String @db.VarChar(100)
+  
+  Reception   Reception[]
+}
+
+model Product {
+  id  Int       @id @default(autoincrement())
+  name        String    @db.VarChar(250)
+  stock       Int
+  price       Decimal   @db.Decimal(15, 2)
+  seuil       Int
+  category    String    @db.VarChar(250)
+  created_at  DateTime @default(now())
+  code_bare   String?   @unique @db.VarChar(100)
+  id_user     Int?      
+
+  // Relation with User (foreign key)
+  user        User?     @relation(fields: [id_user], references: [id])
+  SaleDetail  SaleDetail[]
+  Inventory   Inventory[]
+  ReceptionDetail ReceptionDetail[]
+  StockMouvement StockMouvement[]
+}
+
+model Sale {
+  id   Int       @id @default(autoincrement())
+  created_at DateTime @default(now())
+  id_user   Int?      
+
+  // Relation with User (foreign key)
+  user      User?     @relation(fields: [id_user], references: [id])
+  SaleDetail SaleDetail[]
+}
+
+model SaleDetail {
+  id Int    @id @default(autoincrement())
+  amount         Int
+  sale_quantity  Int
+  id_sale        Int?
+  id_product     Int?
+
+  // Relations with Sale and Product (foreign keys)
+  sale      Sale?      @relation(fields: [id_sale], references: [id])
+  product   Product?   @relation(fields: [id_product], references: [id])
+}
+
+model Reception {
+  id Int    @id @default(autoincrement())
+  created_at   DateTime @default(now())
+  id_supplier  Int?
+  id_user      Int?     
+
+  // Relations with Supplier and User (foreign keys)
+  supplier     Supplier?  @relation(fields: [id_supplier], references: [id])
+  user         User?      @relation(fields: [id_user], references: [id])
+  ReceptionDetail ReceptionDetail[]
+}
+
+model Inventory {
+  id Int    @id @default(autoincrement())
+  remarque     String
+  quantity     Int
+  created_at   DateTime @default(now())
+  id_user      Int?
+  id_product   Int?
+
+  // Relations with User and Product (foreign keys)
+  user         User?     @relation(fields: [id_user], references: [id])
+  product      Product?  @relation(fields: [id_product], references: [id])
+}
+
+model ReceptionDetail {
+  id Int    @id @default(autoincrement())
+  quantity            Int
+  id_reception        Int?
+  id_product          Int?
+
+  // Relations with Reception and Product (foreign keys)
+  reception      Reception?   @relation(fields: [id_reception], references: [id])
+  product        Product?     @relation(fields: [id_product], references: [id])
+}
+
+model StockMouvement {
+  id Int    @id @default(autoincrement())
+  quantity     Int
+  id_user      Int?
+  id_product   Int?
+
+  // Relations with User and Product (foreign keys)
+  user         User?     @relation(fields: [id_user], references: [id])
+  product      Product?  @relation(fields: [id_product], references: [id])
+}
