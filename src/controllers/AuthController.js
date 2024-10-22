@@ -1,8 +1,5 @@
-// import UserService from '../services/UserService.js';
-
 import UserService from "../services/UserService.js";
 
-// import UserService from "../Services/UserService.js";
 
 
 class AuthController {

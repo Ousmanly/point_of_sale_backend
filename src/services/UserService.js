@@ -1,9 +1,7 @@
-// import bcrypt from "bcryptjs/dist/bcrypt.js";
 import bcrypt from "bcrypt";
 
 
 import jwt from 'jsonwebtoken';
-// import { JWT_SECRET, JWT_EXPIRATION } from '../config/jwt.js';
 import { config } from "dotenv"
 import prisma from "../config/prisma.js";
 
@@ -11,14 +9,7 @@ config()
 const JWT_SECRET = process.env.JWT_SECRET
 const JWT_EXPIRATION = process.env.JWT_EXPIRATION
 class UserService{
-    // static async checkUserEmail(email) {
-    //     try {
-    //         const result = await prisma.utilisateurs.findFirst({ where: { email } });
-    //         return result ? true : false;
-    //     } catch (error) {
-    //       throw error;
-    //     }
-    // }
+
 
     static async checkUser(email, id = null) {
         try {

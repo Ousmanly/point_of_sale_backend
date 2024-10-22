@@ -3,7 +3,6 @@ import { config } from "dotenv"
 import express from "express"
 import userRoute from "./routes/userRoute.js"
 import authrouter from "./routes/authRoute.js"
-// import authrouter from "./routes/authRoute.js"
 
 const app = express()
 

@@ -1,6 +1,3 @@
-// import bcrypt from "bcryptjs/dist/bcrypt.js";
-// import UserService from "../Services/UserService.js"
-
 import UserService from "../services/UserService.js";
 
 class UserController{
