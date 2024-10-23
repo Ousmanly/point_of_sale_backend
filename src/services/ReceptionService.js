@@ -31,101 +31,115 @@ class ReceptionService {
         }
     };
       
-
-  static async addReception(token, supplierId, receptionDetails) {
-    try {
-      const decoded = jwt.verify(token, JWT_SECRET);
-      const userId = decoded.id; 
-
-      const newReception = await prisma.reception.create({
-        data: {
-          id_supplier: supplierId,
-          id_user: userId,
-          created_at: new Date(),
-          ReceptionDetail: {
-            create: receptionDetails.map(detail => ({
-              quantity: detail.quantity,
-              id_product: detail.id_product
-            }))
-          }
-        },
-        include: {
-          ReceptionDetail: true
-        }
-      });
-
-      for (const detail of newReception.ReceptionDetail) {
-        const product = await prisma.product.update({
-          where: { id: detail.id_product },
+static async addReception(token, id_supplier, recepted_at, receptionDetails) {
+    return await prisma.$transaction(async (prisma) => {
+      try {
+        const decoded = jwt.verify(token, JWT_SECRET);
+        const userId = decoded.id; 
+  
+        const newReception = await prisma.reception.create({
           data: {
-            stock: {
-              increment: detail.quantity 
-            }
-          }
-        });
-
-        await prisma.stockMouvement.create({
-          data: {
-            quantity: detail.quantity,
-            id_product: detail.id_product,
+            id_supplier: id_supplier,
             id_user: userId,
-            movement_at: new Date()
-          }
-        });
-      }
-
-      return newReception;
-    } catch (error) {
-      throw error;
-    }
-  }
-
-
-  static async deleteReception(receptionId){
-    try {
-      const receptionDetails = await prisma.receptionDetail.findMany({
-        where: {
-          id_reception: receptionId
-        }
-      });
-  
-      for (const detail of receptionDetails) {
-        await prisma.product.update({
-          where: {
-            id: detail.id_product
-          },
-          data: {
-            stock: {
-              decrement: detail.quantity
+            created_at: new Date(),
+            recepted_at: recepted_at,
+            ReceptionDetail: {
+              create: receptionDetails.map(detail => ({
+                quantity: detail.quantity,
+                id_product: detail.id_product
+              }))
             }
+          },
+          include: {
+            ReceptionDetail: true
           }
         });
   
-        await prisma.stockMouvement.deleteMany({
-          where: {
-            id_product: detail.id_product,
-            quantity: detail.quantity
-          }
-        });
+        for (const detail of newReception.ReceptionDetail) {
+          await prisma.product.update({
+            where: { id: detail.id_product },
+            data: {
+              stock: {
+                increment: detail.quantity
+              }
+            }
+          });
+  
+          await prisma.stockMouvement.create({
+            data: {
+              quantity: detail.quantity,
+              id_product: detail.id_product,
+              id_user: userId,
+              movement_at: new Date()
+            }
+          });
+        }
+  
+        return newReception;
+      } catch (error) {
+        throw error;
       }
+    });
+  }
   
-      await prisma.receptionDetail.deleteMany({
-        where: {
-          id_reception: receptionId
+
+static async deleteReception(receptionId) {
+
+    return await prisma.$transaction(async (prisma) => {
+      try {
+        const receptionDetails = await prisma.receptionDetail.findMany({
+          where: {
+            id_reception: receptionId
+          }
+        });
+  
+        for (const detail of receptionDetails) {
+          await prisma.product.update({
+            where: {
+              id: detail.id_product
+            },
+            data: {
+              stock: {
+                decrement: detail.quantity
+              }
+            }
+          });
+  
+          const stockMovement = await prisma.stockMouvement.findFirst({
+            where: {
+              id_product: detail.id_product,
+              quantity: detail.quantity
+            }
+          });
+  
+          if (stockMovement) {
+            await prisma.stockMouvement.delete({
+              where: {
+                id: stockMovement.id
+              }
+            });
+          }
         }
-      });
   
-      const deletedReception = await prisma.reception.delete({
-        where: {
-          id: receptionId
-        }
-      });
+        await prisma.receptionDetail.deleteMany({
+          where: {
+            id_reception: receptionId
+          }
+        });
   
-      return deletedReception
-    } catch (error) {
-        throw error
-    }
-  };
+        const deletedReception = await prisma.reception.delete({
+          where: {
+            id: receptionId
+          }
+        });
+  
+        return deletedReception;
+      } catch (error) {
+        throw error;
+      }
+    });
+  }
+  
   
 }
 

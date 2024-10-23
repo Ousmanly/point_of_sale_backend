@@ -6,6 +6,7 @@ import authrouter from "./routes/authRoute.js"
 import productRoute from "./routes/productRoute.js"
 import supplierRoute from "./routes/supplierRoute.js"
 import receptionRoute from "./routes/receptionRoute.js"
+import saleRoute from "./routes/saleRoute.js"
 
 const app = express()
 
@@ -16,6 +17,7 @@ app.use('/api', authrouter )
 app.use('/api', productRoute )
 app.use('/api', supplierRoute )
 app.use('/api', receptionRoute )
+app.use('/api', saleRoute )
 app.get('/', (_req, res) => {
   res.send('hello world')
 })

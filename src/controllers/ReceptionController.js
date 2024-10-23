@@ -3,6 +3,7 @@
 import ReceptionService from "../services/ReceptionService.js";
 
 class ReceptionController{
+
     static async getAllReceptions(_req, res){
         const result = await ReceptionService.getReceptions()
         res.status(201).json(result)
@@ -10,9 +11,9 @@ class ReceptionController{
 
     static async createReception(req, res, next) {
         const token = req.headers.authorization.split(' ')[1];
-        const { supplierId, receptionDetails } = req.body;
+        const { id_supplier,recepted_at, receptionDetails } = req.body;
         try {
-            await ReceptionService.addReception(token, supplierId, receptionDetails);
+            await ReceptionService.addReception(token, id_supplier, recepted_at, receptionDetails);
             res.status(201).json({message:"reception has been created"});
         } catch (error) {
             throw error

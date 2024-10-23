@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import { config } from "dotenv"
 config() 
 const JWT_SECRET = process.env.JWT_SECRET
-const authMiddleware = (req, res, next) => {
+const roleAdminMiddleware = (req, res, next) => {
     const token = req.header('Authorization').replace('Bearer ', '');
 
     if (!token) {
@@ -11,9 +11,9 @@ const authMiddleware = (req, res, next) => {
 
     try {
         const decoded = jwt.verify(token, JWT_SECRET);
-        // if (decoded.role !== 'ADMIN') {
-        //     return res.status(403).json({ message: 'Acces denied. You are not authorized.' });
-        // }
+        if (decoded.role !== 'ADMIN') {
+            return res.status(403).json({ message: 'Acces denied. You are not authorized.' });
+        }
         req.user = decoded;
         next();
     } catch (error) {
@@ -21,4 +21,4 @@ const authMiddleware = (req, res, next) => {
     }
 };
 
-export default authMiddleware;
+export default roleAdminMiddleware;

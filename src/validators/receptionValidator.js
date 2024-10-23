@@ -19,6 +19,11 @@ const addRequestReceptionValidator = [
         return true;
       })
       .bail(),
+  check('recepted_at')
+    .not()
+    .isEmpty()
+    .withMessage('Date of reception is required!')
+    .bail(),
   check('receptionDetails.*.id_product')
     .not()
     .isEmpty()
