@@ -134,7 +134,7 @@ class UserService{
                 { expiresIn: JWT_EXPIRATION }
             );
 
-            return { token, user };
+            return { token };
         } catch (error) {
             throw error;
         }

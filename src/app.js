@@ -7,6 +7,7 @@ import productRoute from "./routes/productRoute.js"
 import supplierRoute from "./routes/supplierRoute.js"
 import receptionRoute from "./routes/receptionRoute.js"
 import saleRoute from "./routes/saleRoute.js"
+import inventoryRoute from "./routes/inventoryRoute.js"
 
 const app = express()
 
@@ -18,6 +19,7 @@ app.use('/api', productRoute )
 app.use('/api', supplierRoute )
 app.use('/api', receptionRoute )
 app.use('/api', saleRoute )
+app.use('/api', inventoryRoute )
 app.get('/', (_req, res) => {
   res.send('hello world')
 })
