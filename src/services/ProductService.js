@@ -2,54 +2,47 @@
 import prisma from "../config/prisma.js";
 import jwt from 'jsonwebtoken';
 import { config } from 'dotenv';
+import sendStockAlert from "./emailService.js";
 
 config();
 
 const JWT_SECRET = process.env.JWT_SECRET;
 class ProductService {
-
-    // static async getProducts(){
-    //     try {
-    //         const products = await ProductModel.getProducts()
-    //         return products;
-    //     } catch (error) {
-    //         throw error
-    //     }
-    // }
-
-    // static async createProduct(token, name, stock, price, seuil, category, code_bare) {
-    //     try {
-    //         const newProduct = await ProductModel.createProduct(token, name, stock, price, seuil, category, code_bare)
-
-    //         return newProduct;
-    //     } catch (error) {
-    //         throw error
-    //     }
-    // }
-
-    // static async updateProduct(token, id, name, price, seuil, category, code_bare) {
-    //     try {
-    //         const newProduct = await ProductModel.updateProduct(token, id, name, price, seuil, category, code_bare)
-
-    //         return newProduct;
-    //     } catch (error) {
-    //         throw error
-    //     }
-    // }
-
-    // static async deleteProduct(id) {
-    //     try {
-    //         const products = await ProductModel.deleteProduct(id)
-    //         return products;
-    //     } catch (error) {
-    //         throw error;
-    //     }
-    // }
-
+    //////////////
+    static async updateProductStock(id_product, quantity) {
+        const product = await prisma.product.update({
+          where: { id: id_product },
+          data: {
+            stock: {
+              set: quantity
+            }
+          }
+        });
+    
+        // Vérifiez si le stock est inférieur ou égal au seuil
+        if (product.stock <= product.seuil) {
+          // Récupérez les emails des administrateurs
+          const admins = await prisma.user.findMany({
+            where: {
+              role: 'ADMIN'
+            },
+            select: {
+              email: true
+            }
+          });
+    
+          const adminEmails = admins.map(admin => admin.email);
+    
+          // Envoyez l'alerte
+          await sendStockAlert(adminEmails, product.name, product.stock, product.seuil);
+        }
+    
+        return product;
+      }
     
 
 
-
+    /////////////:
     static async checkProduct(code_bare, id = null) {
         try {
             if (id) {

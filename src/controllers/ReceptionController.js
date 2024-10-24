@@ -14,7 +14,8 @@ class ReceptionController{
         const { id_supplier,recepted_at, receptionDetails } = req.body;
         try {
             await ReceptionService.addReception(token, id_supplier, recepted_at, receptionDetails);
-            res.status(201).json({message:"reception has been created"});
+            // res.status(201).json({message:"reception has been created"});
+            res.status(201).json({ message: req.t('message.createReception') });
         } catch (error) {
             throw error
             
@@ -26,7 +27,8 @@ class ReceptionController{
         const {id} = req.params; 
         try {
             await ReceptionService.deleteReception(parseInt(id));
-            res.status(200).json({ message: 'reception has been deleted'});
+            // res.status(200).json({ message: 'reception has been deleted'});
+            res.status(200).json({ message: req.t('message.deleteReception') });
         } catch (error) {
             res.status(400).json({ message: error.message });
         }

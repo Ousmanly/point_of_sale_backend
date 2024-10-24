@@ -1,0 +1,26 @@
+{
+  "message": {
+    "createSale": "تم إنشاء البيع",
+    "deleteSale": "تم حذف البيع",
+    "getSales": "ها هي المبيعات",
+    "errorSale": "حدث خطأ أثناء معالجة البيع",
+    "createUser": "تم إنشاء المستخدم",
+    "updateUser": "تم تحديث المستخدم",
+    "deleteUser": "تم حذف المستخدم",
+    "invalidId": "معرف المستخدم غير صالح",
+    "createSupplier": "تم إنشاء المورد بنجاح",
+    "updateSupplier": "تم تحديث المورد بنجاح",
+    "deleteSupplier": "تم حذف المورد",
+    "errorSupplier": "حدث خطأ أثناء معالجة المورد",
+    "createReception": "تم إنشاء الاستلام بنجاح",
+    "deleteReception": "تم حذف الاستلام",
+    "errorReception": "حدث خطأ أثناء معالجة الاستلام",
+    "invalidIdd": "معرّف الاستلام غير صالح",
+    "createProduct": "تم إنشاء المنتج.",
+    "updateProduct": "تم تحديث المنتج.",
+    "deleteProduct": "تم حذف المنتج.",
+    "errorProduct": "حدث خطأ أثناء معالجة المنتج.",
+    "invalidIdP": "معرف المنتج غير صالح.",
+    "createInventory": "تم إنشاء المخزون."
+  }
+}

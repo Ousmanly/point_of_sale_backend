@@ -13,7 +13,8 @@ class ProductController{
         const { name, stock, price, seuil, category, code_bare } = req.body;
         try {
             await ProductService.createProduct(token, name, stock, price, seuil, category, code_bare);
-            res.status(201).json({message:"product has been created"});
+            // res.status(201).json({message:"product has been created"});
+            res.status(201).json({ message: req.t('message.createProduct') });
         } catch (error) {
             throw error
             
@@ -28,7 +29,8 @@ class ProductController{
             const {name, price, seuil, category, code_bare } = req.body;
             try {
                 await ProductService.updateProduct(token, id, name, price, seuil, category, code_bare)
-                res.status(201).json({message:"product has been update"});
+                // res.status(201).json({message:"product has been update"});
+                res.status(200).json({ message: req.t('message.updateProduct') });
             } catch (error) {
                 throw error
             }
@@ -40,7 +42,8 @@ class ProductController{
         const {id} = req.params; 
         try {
             await ProductService.deleteProduct(parseInt(id));
-            res.status(200).json({ message: 'product has been deleted'});
+            // res.status(200).json({ message: 'product has been deleted'});
+            res.status(200).json({ message: req.t('message.deleteProduct') });
         } catch (error) {
             res.status(400).json({ message: error.message });
         }

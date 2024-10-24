@@ -22,15 +22,6 @@ const addSaleValidator = [
     .not()
     .isEmpty()
     .withMessage('Date of sale ID is required!')
-    .bail()
-    .custom(async (value) => {
-      const id = parseInt(value);
-      const idExists = await ProductService.checkProductById(id);
-      if (!idExists) {
-        throw new Error('Product not found!');
-      }
-      return true;
-    })
     .bail(),
 
   check('saleDetails.*.sale_quantity')

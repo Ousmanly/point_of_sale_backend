@@ -1,0 +1,26 @@
+{
+    "message": {
+        "createSale": "Sale has been created",
+        "deleteSale": "Sale has been deleted",
+        "getSales": "Here are the sales",
+        "errorSale": "An error occurred while processing the sale",
+        "createUser": "User has been created",
+        "updateUser": "User has been updated",
+        "deleteUser": "User has been deleted",
+        "invalidId": "Invalid user ID",
+        "createSupplier": "Supplier has been created successfully",
+        "updateSupplier": "Supplier has been updated successfully",
+        "deleteSupplier": "Supplier has been deleted",
+        "errorSupplier": "An error occurred while processing the supplier",
+        "createReception": "Reception has been created successfully",
+        "deleteReception": "Reception has been deleted",
+        "errorReception": "An error occurred while processing the reception",
+        "invalidIdd": "Invalid reception ID",
+        "createProduct": "Product has been created.",
+        "updateProduct": "Product has been updated.",
+        "deleteProduct": "Product has been deleted.",
+        "errorProduct": "Error occurred while processing the product.",
+        "invalidIdP": "The product ID is invalid.",
+        "createInventory": "Inventory has been created."
+    }
+}

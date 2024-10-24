@@ -2,6 +2,7 @@ import Decimal from 'decimal.js';
 import prisma from "../config/prisma.js";
 import jwt from 'jsonwebtoken';
 import { config } from 'dotenv';
+import sendStockAlert from './emailService.js';
 
 config();
 
@@ -83,7 +84,21 @@ class SaleService {
             },
           },
         });
-
+        ////////////////////
+        const updatedProduct = await prisma.product.findUnique({
+          where: { id: detail.id_product },
+        });
+      
+        if (updatedProduct.stock <= updatedProduct.seuil) {
+          const admins = await prisma.user.findMany({
+            where: { role: 'ADMIN' },
+            select: { email: true },
+          });
+    
+          const adminEmails = admins.map(admin => admin.email);
+          await sendStockAlert(adminEmails, updatedProduct.name, updatedProduct.stock, updatedProduct.seuil);
+        }
+        /////////////////////
         await prisma.stockMouvement.create({
           data: {
             id_user: userId,

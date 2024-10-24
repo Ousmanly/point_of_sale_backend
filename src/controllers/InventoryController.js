@@ -15,7 +15,8 @@ class InventoryController{
     
         try {
           await InventoryService.addInventory(token, id_product, quantity, remarque);
-          res.status(201).json({ message: "Inventory has been created"});
+        //   res.status(201).json({ message: "Inventory has been created"});
+        res.status(201).json({ message: req.t('message.createInventory') });
         } catch (error) {
           res.status(400).json({ message: error.message });
         }

@@ -11,7 +11,8 @@ class SupplierController{
         const { name } = req.body;
         try {
             await SupplierService.createSupplier(token, name);
-            res.status(201).json({message:"suppliers has been created"});
+            // res.status(201).json({message:"suppliers has been created"});
+            res.status(201).json({ message: req.t('message.createSupplier') });
         } catch (error) {
             throw error
             
@@ -26,7 +27,8 @@ class SupplierController{
             const { name } = req.body;
             try {
                 await SupplierService.updateSupplier(token,id, name)
-                res.status(201).json({message:"supplier has been update"});
+                // res.status(201).json({message:"supplier has been update"});
+                res.status(200).json({ message: req.t('message.updateSupplier') })
             } catch (error) {
                 throw error
             }
@@ -38,7 +40,8 @@ class SupplierController{
         const {id} = req.params; 
         try {
             await SupplierService.deleteSupplier(parseInt(id));
-            res.status(200).json({ message: 'user has been deleted'});
+            // res.status(200).json({ message: 'supplier has been deleted'});
+            res.status(200).json({ message: req.t('message.deleteSupplier') });
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
