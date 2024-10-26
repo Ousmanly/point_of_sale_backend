@@ -11,4 +11,4 @@ productRoute.post('/products', authMiddleware, roleAdminMiddleware, addRequestPr
 productRoute.put('/products/:id', authMiddleware, roleAdminMiddleware, updateProductValidatore, ProductController.updateProduct)
 productRoute.delete('/products/:id', authMiddleware, roleAdminMiddleware, deleteProductValidatore, ProductController.deleteProduct)
 
-export default productRoute
+export default productRoute 

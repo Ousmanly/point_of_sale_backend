@@ -41,6 +41,14 @@ class SupplierService {
           throw error;
         }
     }
+    static async getSupplierById(id) {
+        try {
+          const result = await prisma.supplier.findFirst({where: {id}})
+          return result
+        } catch (error) {
+          throw error;
+        }
+    }
 
     static async getSuppliers(){
         try {

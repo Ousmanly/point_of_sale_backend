@@ -2,47 +2,12 @@
 import prisma from "../config/prisma.js";
 import jwt from 'jsonwebtoken';
 import { config } from 'dotenv';
-import sendStockAlert from "./emailService.js";
 
 config();
 
 const JWT_SECRET = process.env.JWT_SECRET;
 class ProductService {
-    //////////////
-    static async updateProductStock(id_product, quantity) {
-        const product = await prisma.product.update({
-          where: { id: id_product },
-          data: {
-            stock: {
-              set: quantity
-            }
-          }
-        });
     
-        // Vérifiez si le stock est inférieur ou égal au seuil
-        if (product.stock <= product.seuil) {
-          // Récupérez les emails des administrateurs
-          const admins = await prisma.user.findMany({
-            where: {
-              role: 'ADMIN'
-            },
-            select: {
-              email: true
-            }
-          });
-    
-          const adminEmails = admins.map(admin => admin.email);
-    
-          // Envoyez l'alerte
-          await sendStockAlert(adminEmails, product.name, product.stock, product.seuil);
-        }
-    
-        return product;
-      }
-    
-
-
-    /////////////:
     static async checkProduct(code_bare, id = null) {
         try {
             if (id) {
@@ -104,14 +69,6 @@ class ProductService {
                 }
             });
 
-            // await prisma.stockMouvement.create({
-            //     data: {
-            //         quantity: stock, // La quantité à partir de la création du produit
-            //         id_user: id_user,
-            //         id_product: newProduct.id // Référence à l'ID du produit créé
-            //     }
-            // });
-
             return newProduct;
         } catch (error) {
             throw error
@@ -141,6 +98,14 @@ class ProductService {
             return updatedProduct;
         } catch (error) {
             throw error
+        }
+    }
+    static async getProductById(id) {
+        try {
+          const result = await prisma.product.findFirst({where: {id}})
+          return result
+        } catch (error) {
+          throw error;
         }
     }
     static async deleteProduct(id) {

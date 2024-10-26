@@ -84,7 +84,6 @@ class SaleService {
             },
           },
         });
-        ////////////////////
         const updatedProduct = await prisma.product.findUnique({
           where: { id: detail.id_product },
         });
@@ -98,7 +97,6 @@ class SaleService {
           const adminEmails = admins.map(admin => admin.email);
           await sendStockAlert(adminEmails, updatedProduct.name, updatedProduct.stock, updatedProduct.seuil);
         }
-        /////////////////////
         await prisma.stockMouvement.create({
           data: {
             id_user: userId,
@@ -172,6 +170,14 @@ class SaleService {
     return transaction;
   }
   
+  static async getSaleById(id) {
+    try {
+      const result = await prisma.sale.findFirst({where: {id}})
+      return result
+    } catch (error) {
+      throw error;
+    }
+}
   
 
 }
