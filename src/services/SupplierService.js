@@ -1,6 +1,7 @@
 import prisma from "../config/prisma.js";
 import jwt from 'jsonwebtoken';
 import { config } from 'dotenv';
+import { SupplierSerializer } from "../serializers/SupplierSerialiser.js";
 
 config();
 
@@ -52,14 +53,32 @@ class SupplierService {
 
     static async getSuppliers(){
         try {
-            const suppliers = await prisma.supplier.findMany()
-            return suppliers;
+            const suppliers = await prisma.supplier.findMany({
+                include: {
+                    user: {
+                        select: {
+                            id: true,
+                            name: true,
+                        }
+                    }
+                }
+            })
+            return SupplierSerializer.serializerForTable(suppliers);
         } catch (error) {
             throw error
         }
     }
+    // static async checkSupplierByUserId(id_user) {
+    //     try {
+    //         const result = await prisma.supplier.findFirst({where: {id_user}})
+    //         return result.length>0;
+    //     } catch (error) {
+    //       throw error;
+    //     }
+    //   }
 
-    static async createSupplier(token, name) {
+    static async createSupplier(token, name, phone) {
+    // static async createSupplier(name) {
         try {
             const decoded = jwt.verify(token, JWT_SECRET);
             const id_user = decoded.id; 
@@ -67,6 +86,7 @@ class SupplierService {
             const newSupplier = await prisma.supplier.create({
                 data: {
                     name: name,
+                    phone:phone,
                     id_user: id_user 
                 }
             });
@@ -77,7 +97,7 @@ class SupplierService {
         }
     }
 
-    static async updateSupplier(token, id, name) {
+    static async updateSupplier(token, id, name, phone) {
         try {
             const decoded = jwt.verify(token, JWT_SECRET);
             const id_user = decoded.id; 
@@ -88,6 +108,7 @@ class SupplierService {
                 },
                 data: {
                     name: name,
+                    phone: phone,
                     id_user: id_user
                 }
             });

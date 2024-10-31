@@ -34,7 +34,7 @@ class SaleService {
     }
   };
 
-  static async createSale(token, saleDetails, sale_at) {
+  static async createSale(token, saleDetails, sale_at, name, phone, email) {
     const decoded = jwt.verify(token, JWT_SECRET);
     const userId = decoded.id; 
     return await prisma.$transaction(async (prisma) => {
@@ -51,7 +51,7 @@ class SaleService {
         }
 
        
-        const price = detail.price !== undefined && detail.price !== null ? new Decimal(detail.price) : new Decimal(product.price);
+        const price = detail.price !== undefined && detail.price !== null ? new Decimal(detail.price) : new Decimal(product.sale_price);
 
        
         const amount = price.times(detail.sale_quantity);
@@ -64,6 +64,9 @@ class SaleService {
         data: {
           id_user: userId,
           sale_at:sale_at,
+          name:name,
+          phone:phone,
+          email:email,
           SaleDetail: {
             create: saleDetails.map(detail => ({
               id_product: detail.id_product,

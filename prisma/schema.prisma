@@ -19,7 +19,7 @@ enum Role {
 model User {
   id   Int      @id @default(autoincrement())
   name      String   @db.VarChar(250)
-  pass_word String   @db.VarChar(100)
+  password String   @db.VarChar(100)
   role      Role     @default(CAISSIER)
   email     String   @unique @db.VarChar(250)
 
@@ -34,7 +34,7 @@ model User {
 model Supplier {
   id Int    @id @default(autoincrement())
   name        String @db.VarChar(100)
-  
+  phone       String @db.VarChar(50)
   id_user     Int?
   user        User?     @relation(fields: [id_user], references: [id])
   Reception   Reception[]
@@ -44,9 +44,9 @@ model Product {
   id  Int       @id @default(autoincrement())
   name        String    @db.VarChar(250)
   stock       Int       @default(0)
-  price       Decimal   @db.Decimal(15, 2)
+  sale_price       Decimal   @db.Decimal(15, 2)
+  purchase_price   Decimal   @db.Decimal(15, 2)
   seuil       Int
-  category    String    @db.VarChar(250)
   created_at  DateTime @default(now())
   updated_at  DateTime  @default(now()) @updatedAt 
   code_bare   String?   @unique @db.VarChar(100)
@@ -63,6 +63,9 @@ model Sale {
   id   Int       @id @default(autoincrement())
   created_at DateTime @default(now())
   sale_at DateTime?
+  name String
+  email String   @unique @db.VarChar(250)
+  phone String
   id_user   Int?      
 
   user      User?     @relation(fields: [id_user], references: [id])
@@ -110,6 +113,7 @@ model ReceptionDetail {
   quantity            Int
   id_reception        Int?
   id_product          Int?
+  price          Decimal   @db.Decimal(15, 2)
 
   reception      Reception?   @relation(fields: [id_reception], references: [id])
   product        Product?     @relation(fields: [id_product], references: [id])

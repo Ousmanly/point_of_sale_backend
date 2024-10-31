@@ -15,23 +15,20 @@ const addRequestProductValidator = [
     .isLength({ min: 3 })
     .withMessage('name must be at least 3 characters long!')
     .bail(),
-  check('price')
+  check('sale_price')
     .not()
     .isEmpty()
-    .withMessage('price is required!')
+    .withMessage('sale_price is required!')
+    .bail(),
+  check('purchase_price')
+    .not()
+    .isEmpty()
+    .withMessage('purchase_price is required!')
     .bail(),
   check('seuil')
     .not()
     .isEmpty()
     .withMessage('seuil is required!')
-    .bail(),
-  check('category')
-    .not()
-    .isEmpty()
-    .withMessage('category is required!')
-    .bail()
-    .isLength({ min: 4 })
-    .withMessage('category must be at least 4 characters long!')
     .bail(),
   check('code_bare')
     .not()
@@ -83,23 +80,20 @@ const updateProductValidatore = [
     .isLength({ min: 3 })
     .withMessage('name must be at least 3 characters long!')
     .bail(),
-  check('price')
+    check('sale_price')
     .not()
     .isEmpty()
-    .withMessage('price is required!')
+    .withMessage('sale_price is required!')
+    .bail(),
+  check('purchase_price')
+    .not()
+    .isEmpty()
+    .withMessage('purchase_price is required!')
     .bail(),
   check('seuil')
     .not()
     .isEmpty()
     .withMessage('seuil is required!')
-    .bail(),
-  check('category')
-    .not()
-    .isEmpty()
-    .withMessage('category is required!')
-    .bail()
-    .isLength({ min: 4 })
-    .withMessage('category must be at least 4 characters long!')
     .bail(),
   check('code_bare')
     .not()
@@ -142,7 +136,8 @@ const deleteProductValidatore = [
         throw new Error('Product not found!');
       }
       return true;
-    }),
+    })
+    .bail(),
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty())

@@ -8,9 +8,10 @@ class SupplierController{
 
     static async createSupplier(req, res, next) {
         const token = req.headers.authorization.split(' ')[1];
-        const { name } = req.body;
+        const { name, phone } = req.body;
         try {
-            await SupplierService.createSupplier(token, name);
+            await SupplierService.createSupplier(token, name, phone);
+            // await SupplierService.createSupplier(name);
             // res.status(201).json({message:"suppliers has been created"});
             res.status(201).json({ message: req.t('message.createSupplier') });
         } catch (error) {
@@ -24,9 +25,9 @@ class SupplierController{
         const token = req.headers.authorization.split(' ')[1];
         const id = Number(req.params.id);
         if(id){
-            const { name } = req.body;
+            const { name, phone } = req.body;
             try {
-                await SupplierService.updateSupplier(token,id, name)
+                await SupplierService.updateSupplier(token,id, name, phone)
                 // res.status(201).json({message:"supplier has been update"});
                 res.status(200).json({ message: req.t('message.updateSupplier') })
             } catch (error) {

@@ -45,7 +45,44 @@ class UserService{
           throw error;
         }
     }
-
+    static async checkSupplierByUserId(userId) {
+        try {
+        const supplier = await prisma.supplier.findFirst({
+            where: { id_user: userId }, 
+        });
+        return !!supplier; 
+        } catch (error) {
+        console.error("Error checking supplier by user ID:", error);
+        throw new Error("Error checking supplier by user ID");
+        }
+    }
+ 
+    static async checkProductByUserId(userId) {
+        try {
+        const product = await prisma.product.findFirst({
+            where: { id_user: userId }, 
+        });
+        return !!product; 
+        } catch (error) {
+        console.error("Error checking supplier by user ID:", error);
+        throw new Error("Error checking supplier by user ID");
+        }
+    }
+  
+  
+      
+    // static async checkRecipeById(id) {
+    //     try {
+    //       const results = await prisma.recipe.findMany({
+    //         where: {
+    //           category_id: id,
+    //         },
+    //       });
+    //       return results.length > 0;
+    //     } catch (error) {
+    //       throw new Error(`Error checking recipe by ID: ${error.message}`);
+    //     }
+    //   }
     static async getUsers(){
         try {
             const users = await prisma.user.findMany()
@@ -54,14 +91,14 @@ class UserService{
             throw error
         }
     }
-    static async createUser(name, pass_word, role, email ) {
+    static async createUser(name, password, role, email ) {
         try {
             const salt = await bcrypt.genSalt(10);
-            const hashedPassword = await bcrypt.hash(pass_word, salt);
+            const hashedPassword = await bcrypt.hash(password, salt);
             const newUser = await prisma.user.create({
                 data: {
                     name:name,
-                    pass_word:hashedPassword,
+                    password:hashedPassword,
                     role:role,
                     email:email,
                 }
@@ -72,10 +109,10 @@ class UserService{
         }
     }
 
-    static async updateUser(id, name, pass_word, role, email) {
+    static async updateUser(id, name, role, email) {
         try {
-            const salt = await bcrypt.genSalt(10);
-            const hashedPassword = await bcrypt.hash(pass_word, salt);
+            // const salt = await bcrypt.genSalt(10);
+            // const hashedPassword = await bcrypt.hash(password, salt);
 
             let user = null
             const check = await prisma.user.findFirst({where: {id}})
@@ -88,7 +125,7 @@ class UserService{
             }, 
             data:{
                 name: name, 
-                pass_word: hashedPassword, 
+                // password: hashedPassword, 
                 role: role, 
                 email: email
             }})
@@ -110,7 +147,7 @@ class UserService{
             }
         }
 
-    static async authenticate(email, pass_word){
+    static async authenticate(email, password){
         try {
             const user = await prisma.user.findUnique({
                 where: {
@@ -122,7 +159,7 @@ class UserService{
                 throw new Error('User not found');
             }
 
-            const isMatch = await bcrypt.compare(pass_word, user.pass_word);
+            const isMatch = await bcrypt.compare(password, user.password);
 
             if (!isMatch) {
                 throw new Error('Incorrect pass word');
@@ -134,7 +171,8 @@ class UserService{
                 { expiresIn: JWT_EXPIRATION }
             );
 
-            return { token };
+            // return { token };
+            return { token, user: { id: user.id, name: user.name, role: user.role } };
         } catch (error) {
             throw error;
         }

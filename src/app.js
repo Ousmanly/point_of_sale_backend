@@ -13,35 +13,44 @@ import middleware from 'i18next-http-middleware';
 import cors from 'cors'
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
+import mouvementRoute from "./routes/mouvementRoute.js";
 
 const app = express();
 
 config();
+const corsOptions = {
+    origin: 'http://localhost:5174', // Origine de votre frontend
+    // methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Autorise les méthodes nécessaires
+    // credentials: true,
+    // allowedHeaders: ['Content-Type', 'Authorization'],
+    optionSuccessStatus:200
+  };
+  app.use(cors(corsOptions));
+  
 app.use(bodyParser.json());
 
 app.use(helmet())
 
-const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000,
-    max: 5, 
-    message: "Try after 15 minutes",
-    headers: true,
-});
-app.use(limiter);
+// const limiter = rateLimit({
+//     windowMs: 15 * 60 * 1000,
+//     max: 100, 
+//     message: "Try after 15 minutes",
+//     headers: true,
+// });
+// app.use(limiter);
 
 app.use(middleware.handle(i18n)); 
 
 
 // const corsOptions = {
-//     origin: 'http://localhost:5173',
+//     origin: 'http://localhost:5174',
 // };
-const corsOptions = {
-    origin: '*',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    allowedHeaders: ['Content-Type', 'Authorization'],
-};
+// const corsOptions = {
+//     origin: 'http://localhost:5173/',
+//     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+//     allowedHeaders: ['Content-Type', 'Authorization'],
+// };
 
-app.use(cors(corsOptions));
 
 app.use('/api', userRoute);
 app.use('/api', authrouter);
@@ -50,6 +59,7 @@ app.use('/api', supplierRoute);
 app.use('/api', receptionRoute);
 app.use('/api', saleRoute);
 app.use('/api', inventoryRoute);
+app.use('/api', mouvementRoute);
 
 app.get('/', (_req, res) => {
     res.send('hello POS');

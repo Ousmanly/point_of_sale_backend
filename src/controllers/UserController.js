@@ -1,3 +1,4 @@
+import prisma from "../config/prisma.js";
 import UserService from "../services/UserService.js";
 
 class UserController{
@@ -7,9 +8,9 @@ class UserController{
     }
 
     static async createUser(req, res, next) {
-        const { name, pass_word, role, email } = req.body;
+        const { name, password, role, email } = req.body;
         try {
-            await UserService.createUser(name, pass_word, role, email);
+            await UserService.createUser(name, password, role, email);
             // res.status(201).json({message:"user has been created"});
             res.status(201).json({ message: req.t('message.createUser') });
         } catch (error) {
@@ -22,9 +23,9 @@ class UserController{
     static async updateUser(req, res, next) {
         const id = Number(req.params.id);
         if(id){
-            const { name, pass_word, role, email } = req.body;
+            const { name, role, email } = req.body;
             try {
-                await UserService.updateUser(id, name, pass_word, role, email)
+                await UserService.updateUser(id, name, role, email)
                 // res.status(201).json({message:"user has been update"});
                 res.status(201).json({ message: req.t('message.updateUser') });
             } catch (error) {
@@ -45,5 +46,22 @@ class UserController{
         }
         next()
     }
+
+    static async getCurrentUser(req, res) {
+        try {
+          const userId = req.user.id;
+          const user = await prisma.user.findUnique({
+            where: { id: userId },
+          });
+    
+          if (user) {
+            res.json({ user });
+          } else {
+            res.status(404).json({ message: "Utilisateur non trouvé" });
+          }
+        } catch (error) {
+          res.status(500).json({ error: "Erreur serveur" });
+        }
+      }
 }
 export default UserController

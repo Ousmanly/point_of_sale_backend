@@ -11,5 +11,6 @@ userRoute.get('/users',authMiddleware, UserController.getAllUsers)
 userRoute.post('/users', authMiddleware, roleAdminMiddleware, addRequestUserValidator, UserController.createUser)
 userRoute.put('/users/:id', authMiddleware, roleAdminMiddleware, updateUserValidatore, UserController.updateUser)
 userRoute.delete('/users/:id', authMiddleware, roleAdminMiddleware, deleteUserValidatore, UserController.deleteUser)
+userRoute.get('/user', authMiddleware, UserController.getCurrentUser);
 
 export default userRoute

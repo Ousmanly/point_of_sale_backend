@@ -15,9 +15,9 @@ class SaleController{
 
     static async createSale(req, res, next) {
         const token = req.headers.authorization.split(' ')[1];
-        const { saleDetails, sale_at } = req.body;
+        const { saleDetails, sale_at, name, phone, email } = req.body;
         try {
-            await SaleService.createSale(token, saleDetails, sale_at);
+            await SaleService.createSale(token, saleDetails, sale_at, name, phone, email);
             // res.status(201).json({message:"sale has been created"});
             res.status(201).json({message:req.t('message.createSale')});
         } catch (error) {

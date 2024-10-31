@@ -5,10 +5,16 @@ import { addRequestSupplierValidator, deleteSupplierValidatore, updateSupplierVa
 import roleAdminMiddleware from "../middlewares/roleAdminMiddlewares.js";
 const supplierRoute = express.Router()
 
-supplierRoute.get('/suppliers',authMiddleware, SupplierController.getAllSuppliers)
+supplierRoute.get('/suppliers',roleAdminMiddleware,authMiddleware, SupplierController.getAllSuppliers)
 // supplierRoute.get('/products', UserController.getAllUsers)
 supplierRoute.post('/suppliers', roleAdminMiddleware, authMiddleware, addRequestSupplierValidator, SupplierController.createSupplier)
 supplierRoute.put('/suppliers/:id', authMiddleware, roleAdminMiddleware, updateSupplierValidatore, SupplierController.updateSupplier)
 supplierRoute.delete('/suppliers/:id', authMiddleware,roleAdminMiddleware, deleteSupplierValidatore, SupplierController.deleteSupplier)
+
+// supplierRoute.get('/suppliers', SupplierController.getAllSuppliers)
+// // supplierRoute.get('/products', UserController.getAllUsers)
+// supplierRoute.post('/suppliers', addRequestSupplierValidator, SupplierController.createSupplier)
+// supplierRoute.put('/suppliers/:id', updateSupplierValidatore, SupplierController.updateSupplier)
+// supplierRoute.delete('/suppliers/:id', deleteSupplierValidatore, SupplierController.deleteSupplier)
 
 export default supplierRoute

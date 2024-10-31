@@ -2,6 +2,7 @@
 import prisma from "../config/prisma.js";
 import jwt from 'jsonwebtoken';
 import { config } from 'dotenv';
+import { ProductSerializer } from "../serializers/ProductSerialiser.js";
 
 config();
 
@@ -23,7 +24,7 @@ class ProductService {
                         code_bare: true,
                     },
                 });
-                return products;
+                return ProductSerializer.serializerForTable(products);
             } else {
                 const result = await prisma.product.findFirst({ where: { code_bare } });
                 return result ? true : false;
@@ -41,17 +42,33 @@ class ProductService {
           throw error;
         }
     }
-
+    // static async checkProductByUserId(id_user) {
+    //     try {
+    //         const result = await prisma.product.findFirst({where: {id_user}})
+    //         return result.length>0;
+    //     } catch (error) {
+    //       throw error;
+    //     }
+    //   }
     static async getProducts(){
         try {
-            const products = await prisma.product.findMany()
-            return products;
+            const products = await prisma.product.findMany({
+                include: {
+                    user: {
+                        select: {
+                            id: true,
+                            name: true,
+                        }
+                    }
+                }
+            })
+            return ProductSerializer.serializerForTable(products);
         } catch (error) {
             throw error
         }
     }
 
-    static async createProduct(token, name, stock, price, seuil, category, code_bare) {
+    static async createProduct(token, name, stock, sale_price, purchase_price, seuil, code_bare) {
         try {
             const decoded = jwt.verify(token, JWT_SECRET);
             const id_user = decoded.id; 
@@ -60,9 +77,9 @@ class ProductService {
                 data: {
                     name: name,
                     stock: stock,
-                    price: price,
+                    sale_price: sale_price,
+                    purchase_price:purchase_price,
                     seuil: seuil,
-                    category: category,
                     code_bare: code_bare,
                     created_at: new Date(),
                     id_user: id_user 
@@ -75,7 +92,7 @@ class ProductService {
         }
     }
 
-    static async updateProduct(token, id, name, price, seuil, category, code_bare) {
+    static async updateProduct(token, id, name, sale_price, purchase_price, seuil, code_bare) {
         try {
             const decoded = jwt.verify(token, JWT_SECRET);
             const id_user = decoded.id; 
@@ -86,9 +103,9 @@ class ProductService {
                 },
                 data: {
                     name: name,
-                    price: price,
+                    sale_price:sale_price,
+                    purchase_price:purchase_price,
                     seuil: seuil,
-                    category: category,
                     code_bare: code_bare,
                     updated_at: new Date(),
                     id_user: id_user

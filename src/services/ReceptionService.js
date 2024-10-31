@@ -1,6 +1,7 @@
 import prisma from "../config/prisma.js";
 import jwt from 'jsonwebtoken';
 import { config } from 'dotenv';
+import { ReceptionSerializer } from "../serializers/RecepionSerialiser.js";
 
 config();
 
@@ -17,19 +18,69 @@ class ReceptionService {
         }
     }
 
-    static async getReceptions(){
+    // static async getReceptions(){
+    //     try {
+    //       const receptions = await prisma.reception.findMany({
+    //         include: {
+    //             supplier:{
+    //                 select:{
+    //                     name:true,
+    //                     phone:true
+    //                 }
+    //             },
+    //             user:{
+    //                 select:{
+    //                     name:true
+    //                 }
+    //             },
+    //             ReceptionDetail:{
+    //                 select: {
+    //                     quantity: true,
+    //                     id_product:true
+    //                 }
+    //             }
+    //         }
+    //       });
+    //       return ReceptionSerializer.serializerForTable(receptions)
+    //     } catch (error) {
+    //         throw error
+    //     }
+    // };
+    static async getReceptions() {
         try {
-          const receptions = await prisma.reception.findMany({
-            include: {
-                ReceptionDetail: true
-            }
-          });
-      
-          return receptions
+            const receptions = await prisma.reception.findMany({
+                include: {
+                    supplier: {
+                        select: {
+                            id: true,
+                            name: true,
+                            phone: true
+                        }
+                    },
+                    user: {
+                        select: {
+                            id: true,
+                            name: true
+                        }
+                    },
+                    ReceptionDetail: {
+                        select: {
+                            quantity: true,
+                            price: true,
+                            product: {  // Inclut le produit lié pour obtenir son nom
+                                select: {
+                                    name: true // Sélectionne le nom du produit
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            return ReceptionSerializer.serializerForTable(receptions);
         } catch (error) {
-            throw error
+            throw error;
         }
-    };
+    }
       
 static async addReception(token, id_supplier, recepted_at, receptionDetails) {
     return await prisma.$transaction(async (prisma) => {
@@ -42,10 +93,11 @@ static async addReception(token, id_supplier, recepted_at, receptionDetails) {
             id_supplier: id_supplier,
             id_user: userId,
             created_at: new Date(),
-            recepted_at: recepted_at,
+            recepted_at: new Date(recepted_at).toISOString(),
             ReceptionDetail: {
               create: receptionDetails.map(detail => ({
                 quantity: detail.quantity,
+                price: detail.price,
                 id_product: detail.id_product
               }))
             }
