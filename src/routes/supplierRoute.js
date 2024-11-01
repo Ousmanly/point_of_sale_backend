@@ -10,6 +10,7 @@ supplierRoute.get('/suppliers',roleAdminMiddleware,authMiddleware, SupplierContr
 supplierRoute.post('/suppliers', roleAdminMiddleware, authMiddleware, addRequestSupplierValidator, SupplierController.createSupplier)
 supplierRoute.put('/suppliers/:id', authMiddleware, roleAdminMiddleware, updateSupplierValidatore, SupplierController.updateSupplier)
 supplierRoute.delete('/suppliers/:id', authMiddleware,roleAdminMiddleware, deleteSupplierValidatore, SupplierController.deleteSupplier)
+supplierRoute.put('/suppliers/:id/status', SupplierController.updateSupplierStatus);
 
 // supplierRoute.get('/suppliers', SupplierController.getAllSuppliers)
 // // supplierRoute.get('/products', UserController.getAllUsers)

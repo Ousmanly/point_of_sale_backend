@@ -1,3 +1,4 @@
+import prisma from "../config/prisma.js";
 import SupplierService from "../services/SupplierService.js";
 
 class SupplierController{
@@ -36,7 +37,20 @@ class SupplierController{
         }
         next()
     }
-
+    static async updateSupplierStatus(req, res){
+        const supplierId = parseInt(req.params.id, 10); // Récupérer l'ID depuis les paramètres de la requête
+        const { status } = req.body; // Récupérer le statut depuis le corps de la requête
+      
+        try {
+          const user = await prisma.supplier.update({
+            where: { id: supplierId },
+            data: { status: status },
+          });
+          res.status(200).json({ message: 'Supplier status updated successfully', user });
+        } catch (error) {
+          res.status(500).json({ message: 'Error updating supplier status', error });
+        }
+      };
     static async deleteSupplier(req, res, next) {
         const {id} = req.params; 
         try {

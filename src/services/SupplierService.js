@@ -59,7 +59,7 @@ class SupplierService {
                     id: true,
                     name: true,
                     phone:true,
-                    status: true, // Inclure le champ `status` ici
+                    status: true,
                     user: {
                         select: {
                             id: true,
