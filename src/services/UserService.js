@@ -52,7 +52,6 @@ class UserService{
         });
         return !!supplier; 
         } catch (error) {
-        console.error("Error checking supplier by user ID:", error);
         throw new Error("Error checking supplier by user ID");
         }
     }
@@ -64,8 +63,27 @@ class UserService{
         });
         return !!product; 
         } catch (error) {
-        console.error("Error checking supplier by user ID:", error);
-        throw new Error("Error checking supplier by user ID");
+        throw new Error("Error checking product by user ID");
+        }
+    }
+    static async checkReceptionByUserId(userId) {
+        try {
+        const reception = await prisma.reception.findFirst({
+            where: { id_user: userId }, 
+        });
+        return !!reception; 
+        } catch (error) {
+        throw new Error("Error checking reception by user ID");
+        }
+    }
+    static async checkMouvementByUserId(userId) {
+        try {
+        const mouvement = await prisma.stockMouvement.findFirst({
+            where: { id_user: userId }, 
+        });
+        return !!mouvement; 
+        } catch (error) {
+        throw new Error("Error checking mouvement by user ID");
         }
     }
   

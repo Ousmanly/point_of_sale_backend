@@ -10,7 +10,7 @@ const addRequestUserValidator = [
     .isEmpty()
     .withMessage('name is required!')
     .bail()
-    .isString()
+    .isString() 
     .withMessage("name can't be a number!")
     .bail()
     .isLength({ min: 3 })
@@ -151,6 +151,14 @@ const deleteUserValidatore = [
         const isAttachedToProduct = await UserService.checkProductByUserId(id); // Utilisez la nouvelle méthode
         if (isAttachedToProduct) {
           throw new Error('Cannot delete this user because they are attached to a product!');
+        }
+        const isAttachedToReception = await UserService.checkReceptionByUserId(id); // Utilisez la nouvelle méthode
+        if (isAttachedToReception) {
+          throw new Error('Cannot delete this user because they are attached to a reception!');
+        }
+        const isAttachedMouvement = await UserService.checkMouvementByUserId(id); // Utilisez la nouvelle méthode
+        if (isAttachedMouvement) {
+          throw new Error('Cannot delete this user because they are attached to a mouvement!');
         }
         return true;
       }),

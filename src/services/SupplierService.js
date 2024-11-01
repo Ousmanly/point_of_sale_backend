@@ -9,37 +9,38 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 class SupplierService {
 
-    // static async checkProduct(code_bare, id = null) {
-    //     try {
-    //         if (id) {
-    //             const products = await prisma.product.findMany({
-    //                 where: {
-    //                     code_bare: code_bare,
-    //                     id: {
-    //                         not: id,
-    //                     },
-    //                 },
-    //                 select: {
-    //                     id: true,
-    //                     code_bare: true,
-    //                 },
-    //             });
-    //             return products;
-    //         } else {
-    //             const result = await prisma.product.findFirst({ where: { code_bare } });
-    //             return result ? true : false;
-    //         }
-    //     } catch (error) {
-    //         throw error;
-    //     }
-    // }
-
     static async checkSupplierById(id) {
         try {
           const result = await prisma.supplier.findFirst({where: {id}})
           return result ? true : false;
         } catch (error) {
           throw error;
+        }
+    }
+
+    static async checkSupplier(phone, id = null) {
+        try {
+            phone = phone.toString()
+            if (id) {
+                const suppliers = await prisma.supplier.findMany({
+                    where: {
+                        phone: phone,
+                        id: {
+                            not: id,
+                        },
+                    },
+                    select: {
+                        id: true,
+                        phone: true,
+                    },
+                });
+                return suppliers;
+            } else {
+                const result = await prisma.supplier.findFirst({ where: { phone } });
+                return result ? true : false;
+            }
+        } catch (error) {
+            throw error;
         }
     }
     static async getSupplierById(id) {

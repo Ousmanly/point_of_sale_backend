@@ -1,6 +1,7 @@
 import prisma from "../config/prisma.js";
 import jwt from 'jsonwebtoken';
 import { config } from 'dotenv';
+import { InventorySerializer } from "../serializers/inventorySerialiser.js";
 
 config();
 
@@ -11,8 +12,23 @@ class InventoryService {
 
     static async getInventory(){
         try {
-            const inventaries = await prisma.inventory.findMany()
-            return inventaries;
+            const inventaries = await prisma.inventory.findMany({
+                include: {
+                    user: {
+                        select: {
+                            id: true,
+                            name: true,
+                        }
+                    },
+                    product: {
+                        select: {
+                            id: true,
+                            name: true,
+                        }
+                    }
+                }
+            })
+            return InventorySerializer.serializerForTable(inventaries);
         } catch (error) {
             throw error
         }

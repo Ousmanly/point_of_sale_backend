@@ -16,6 +16,22 @@ const addRequestSupplierValidator = [
     .isLength({ min: 3 })
     .withMessage('name must be at least 3 characters long!')
     .bail(),
+  check('phone')
+    .not()
+    .isEmpty()
+    .withMessage('name is required!')
+    .bail()
+    .isString()
+    .withMessage("phone number must be a string!")
+    .bail()     
+    .custom(async (value) => {
+        const emailExists = await SupplierService.checkSupplier(value);
+        if (emailExists) {
+          throw new Error('This phone number is already exist!');
+        }
+        return true;
+      })
+    .bail(),
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty())
@@ -43,7 +59,7 @@ const updateSupplierValidatore = [
       return true;
     })
     .bail(),
-  check('name')
+    check('name')
     .not()
     .isEmpty()
     .withMessage('name is required!')
@@ -54,6 +70,23 @@ const updateSupplierValidatore = [
     .isLength({ min: 3 })
     .withMessage('name must be at least 3 characters long!')
     .bail(),
+  check('phone')
+    .not()
+    .isEmpty()
+    .withMessage('name is required!')
+    .bail()
+    .isString()
+    .withMessage("phone number must be a string!")
+    .bail()
+    .custom(async (value, { req }) => {
+        const id = req.params.id;
+        const phone = value.toString();
+        const result = await SupplierService.checkSupplier(phone, parseInt(id));
+        if (result.length !== 0) {
+          throw new Error('This phone number is already exist!');
+        }
+        return true;
+      }),
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty())

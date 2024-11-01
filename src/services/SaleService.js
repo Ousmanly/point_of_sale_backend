@@ -3,6 +3,7 @@ import prisma from "../config/prisma.js";
 import jwt from 'jsonwebtoken';
 import { config } from 'dotenv';
 import sendStockAlert from './emailService.js';
+import { SaleSerializer } from '../serializers/SaleSerialiser.js';
 
 config();
 
@@ -24,11 +25,29 @@ class SaleService {
     try {
       const sales = await prisma.sale.findMany({
         include: {
-          SaleDetail: true
+          user: {
+            select: {
+                id: true,
+                name: true
+            }
+        },
+          SaleDetail: {
+            select:{
+              id: true,
+              amount: true,
+              sale_quantity: true,
+              price: true,
+              product: {  // Inclut le produit lié pour obtenir son nom
+                select: {
+                    name: true // Sélectionne le nom du produit
+                }
+            }
+            }
+          }
         }
       });
   
-      return sales
+      return SaleSerializer.serializerForTable(sales)
     } catch (error) {
         throw error
     }
@@ -51,19 +70,21 @@ class SaleService {
         }
 
        
-        const price = detail.price !== undefined && detail.price !== null ? new Decimal(detail.price) : new Decimal(product.sale_price);
+        // const price = detail.price !== undefined && detail.price !== null ? new Decimal(detail.price) : new Decimal(product.sale_price);
+        const price = detail.sale_price !== undefined && detail.sale_price !== null ? new Decimal(detail.sale_price) : new Decimal(product.sale_price);
 
        
         const amount = price.times(detail.sale_quantity);
 
         detail.amount = amount.toFixed(2);
-        detail.price = price.toFixed(2);   
+        // detail.price = price.toFixed(2);   
+        detail.sale_price = price.toFixed(2);   
       }
 
       const sale = await prisma.sale.create({
         data: {
           id_user: userId,
-          sale_at:sale_at,
+          sale_at:new Date(sale_at).toISOString(),
           name:name,
           phone:phone,
           email:email,
@@ -72,7 +93,8 @@ class SaleService {
               id_product: detail.id_product,
               sale_quantity: detail.sale_quantity,
               amount: detail.amount,
-              price: detail.price,
+              // price: detail.price,
+              price: detail.sale_price,
             })),
           },
         },

@@ -64,8 +64,8 @@ model Sale {
   created_at DateTime @default(now())
   sale_at DateTime?
   name String
-  email String   @unique @db.VarChar(250)
-  phone String
+  email String?   @db.VarChar(250)
+  phone String?
   id_user   Int?      
 
   user      User?     @relation(fields: [id_user], references: [id])
@@ -78,7 +78,7 @@ model SaleDetail {
   sale_quantity  Int
   id_sale        Int?
   id_product     Int?
-  price          Decimal   @db.Decimal(15, 2)
+  price          Decimal?   @db.Decimal(15, 2)
 
   sale      Sale?      @relation(fields: [id_sale], references: [id])
   product   Product?   @relation(fields: [id_product], references: [id])
