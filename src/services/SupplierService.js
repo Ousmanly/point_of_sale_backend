@@ -55,7 +55,11 @@ class SupplierService {
     static async getSuppliers(){
         try {
             const suppliers = await prisma.supplier.findMany({
-                include: {
+                select: {
+                    id: true,
+                    name: true,
+                    phone:true,
+                    status: true, // Inclure le champ `status` ici
                     user: {
                         select: {
                             id: true,
@@ -63,7 +67,7 @@ class SupplierService {
                         }
                     }
                 }
-            })
+            });
             return SupplierSerializer.serializerForTable(suppliers);
         } catch (error) {
             throw error
@@ -78,7 +82,7 @@ class SupplierService {
     //     }
     //   }
 
-    static async createSupplier(token, name, phone) {
+    static async createSupplier(token, name, phone, status) {
     // static async createSupplier(name) {
         try {
             const decoded = jwt.verify(token, JWT_SECRET);
@@ -88,6 +92,7 @@ class SupplierService {
                 data: {
                     name: name,
                     phone:phone,
+                    status:status,
                     id_user: id_user 
                 }
             });

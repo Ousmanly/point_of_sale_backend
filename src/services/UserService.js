@@ -109,7 +109,7 @@ class UserService{
             throw error
         }
     }
-    static async createUser(name, password, role, email ) {
+    static async createUser(name, password, role, email, status ) {
         try {
             const salt = await bcrypt.genSalt(10);
             const hashedPassword = await bcrypt.hash(password, salt);
@@ -119,6 +119,7 @@ class UserService{
                     password:hashedPassword,
                     role:role,
                     email:email,
+                    status: status
                 }
             });
             return newUser;
@@ -175,6 +176,10 @@ class UserService{
 
             if (!user) {
                 throw new Error('User not found');
+            }
+
+            if (!user.status) {
+                throw new Error('Account is inactive');
             }
 
             const isMatch = await bcrypt.compare(password, user.password);

@@ -20,9 +20,9 @@ model User {
   id   Int      @id @default(autoincrement())
   name      String   @db.VarChar(250)
   password String   @db.VarChar(100)
-  role      Role     @default(CAISSIER)
+  role      Role     @default(ADMIN)
   email     String   @unique @db.VarChar(250)
-
+  status   Boolean @default(true)
   Product   Product[]
   Sale      Sale[]
   Reception Reception[]
@@ -35,6 +35,7 @@ model Supplier {
   id Int    @id @default(autoincrement())
   name        String @db.VarChar(100)
   phone       String @db.VarChar(50)
+  status   Boolean @default(true)
   id_user     Int?
   user        User?     @relation(fields: [id_user], references: [id])
   Reception   Reception[]
@@ -50,6 +51,7 @@ model Product {
   created_at  DateTime @default(now())
   updated_at  DateTime  @default(now()) @updatedAt 
   code_bare   String?   @unique @db.VarChar(100)
+  status   Boolean @default(true)
   id_user     Int?      
 
   user        User?     @relation(fields: [id_user], references: [id])
@@ -81,7 +83,7 @@ model SaleDetail {
   price          Decimal?   @db.Decimal(15, 2)
 
   sale      Sale?      @relation(fields: [id_sale], references: [id])
-  product   Product?   @relation(fields: [id_product], references: [id])
+  product   Product?   @relation(fields: [id_product], references: [id], onDelete: Restrict)
 }
 
 model Reception {
@@ -91,7 +93,7 @@ model Reception {
   id_supplier  Int?
   id_user      Int?     
 
-  supplier     Supplier?  @relation(fields: [id_supplier], references: [id])
+  supplier     Supplier?  @relation(fields: [id_supplier], references: [id],onDelete: Restrict)
   user         User?      @relation(fields: [id_user], references: [id])
   ReceptionDetail ReceptionDetail[]
 }
@@ -105,7 +107,7 @@ model Inventory {
   id_product   Int?
 
   user         User?     @relation(fields: [id_user], references: [id])
-  product      Product?  @relation(fields: [id_product], references: [id])
+  product      Product?  @relation(fields: [id_product], references: [id], onDelete: Restrict)
 }
 
 model ReceptionDetail {
@@ -116,7 +118,7 @@ model ReceptionDetail {
   price          Decimal   @db.Decimal(15, 2)
 
   reception      Reception?   @relation(fields: [id_reception], references: [id])
-  product        Product?     @relation(fields: [id_product], references: [id])
+  product        Product?     @relation(fields: [id_product], references: [id], onDelete: Restrict)
 }
 
 model StockMouvement {
@@ -126,6 +128,6 @@ model StockMouvement {
   id_product   Int?
   movement_at DateTime @default(now())
 
-  user         User?     @relation(fields: [id_user], references: [id])
-  product      Product?  @relation(fields: [id_product], references: [id])
+  user         User?     @relation(fields: [id_user], references: [id], onDelete: Restrict)
+  product      Product?  @relation(fields: [id_product], references: [id], onDelete: Restrict) 
 }

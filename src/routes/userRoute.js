@@ -6,11 +6,12 @@ import roleAdminMiddleware from "../middlewares/roleAdminMiddlewares.js";
 
 const userRoute = express.Router()
 
-userRoute.get('/users',authMiddleware, UserController.getAllUsers)
+userRoute.get('/users',authMiddleware,roleAdminMiddleware, UserController.getAllUsers)
 // userRoute.get('/users', UserController.getAllUsers)
 userRoute.post('/users', authMiddleware, roleAdminMiddleware, addRequestUserValidator, UserController.createUser)
 userRoute.put('/users/:id', authMiddleware, roleAdminMiddleware, updateUserValidatore, UserController.updateUser)
 userRoute.delete('/users/:id', authMiddleware, roleAdminMiddleware, deleteUserValidatore, UserController.deleteUser)
 userRoute.get('/user', authMiddleware, UserController.getCurrentUser);
+userRoute.put('/users/:id/status', UserController.updateUserStatus);
 
 export default userRoute

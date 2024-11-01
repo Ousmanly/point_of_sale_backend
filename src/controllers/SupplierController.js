@@ -8,9 +8,9 @@ class SupplierController{
 
     static async createSupplier(req, res, next) {
         const token = req.headers.authorization.split(' ')[1];
-        const { name, phone } = req.body;
+        const { name, phone, status } = req.body;
         try {
-            await SupplierService.createSupplier(token, name, phone);
+            await SupplierService.createSupplier(token, name, phone, status);
             // await SupplierService.createSupplier(name);
             // res.status(201).json({message:"suppliers has been created"});
             res.status(201).json({ message: req.t('message.createSupplier') });

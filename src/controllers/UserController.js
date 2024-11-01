@@ -8,9 +8,9 @@ class UserController{
     }
 
     static async createUser(req, res, next) {
-        const { name, password, role, email } = req.body;
+        const { name, password, role, email, status } = req.body;
         try {
-            await UserService.createUser(name, password, role, email);
+            await UserService.createUser(name, password, role, email, status);
             // res.status(201).json({message:"user has been created"});
             res.status(201).json({ message: req.t('message.createUser') });
         } catch (error) {
@@ -35,6 +35,20 @@ class UserController{
         next()
     }
 
+    static async updateUserStatus(req, res){
+        const userId = parseInt(req.params.id, 10); // Récupérer l'ID depuis les paramètres de la requête
+        const { status } = req.body; // Récupérer le statut depuis le corps de la requête
+      
+        try {
+          const user = await prisma.user.update({
+            where: { id: userId },
+            data: { status: status },
+          });
+          res.status(200).json({ message: 'User status updated successfully', user });
+        } catch (error) {
+          res.status(500).json({ message: 'Error updating user status', error });
+        }
+      };
     static async deleteUser(req, res, next) {
         const {id} = req.params; 
         try {
