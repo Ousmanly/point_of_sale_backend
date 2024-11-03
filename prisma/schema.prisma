@@ -18,11 +18,12 @@ enum Role {
 }
 model User {
   id   Int      @id @default(autoincrement())
-  name      String   @db.VarChar(250)
+  name      String   @db.VarChar(100)
   password String   @db.VarChar(100)
   role      Role     @default(ADMIN)
   email     String   @unique @db.VarChar(250)
   status   Boolean @default(true)
+  refreshToken String?
   Product   Product[]
   Sale      Sale[]
   Reception Reception[]
@@ -52,6 +53,7 @@ model Product {
   updated_at  DateTime  @default(now()) @updatedAt 
   code_bare   String?   @unique @db.VarChar(100)
   status   Boolean @default(true)
+  refreshToken String?
   id_user     Int?      
 
   user        User?     @relation(fields: [id_user], references: [id])
@@ -65,7 +67,7 @@ model Sale {
   id   Int       @id @default(autoincrement())
   created_at DateTime @default(now())
   sale_at DateTime?
-  name String
+  name String     @db.VarChar(100)
   email String?   @db.VarChar(250)
   phone String?
   id_user   Int?      
@@ -100,7 +102,7 @@ model Reception {
 
 model Inventory {
   id Int    @id @default(autoincrement())
-  remarque     String
+  remarque     String   @db.VarChar(250)
   quantity     Int
   created_at   DateTime @default(now())
   id_user      Int?

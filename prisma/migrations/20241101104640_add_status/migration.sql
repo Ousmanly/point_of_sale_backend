@@ -1,9 +1,0 @@
--- AlterTable
-ALTER TABLE "Product" ALTER COLUMN "status" DROP NOT NULL;
-
--- AlterTable
-ALTER TABLE "Supplier" ALTER COLUMN "status" DROP NOT NULL;
-
--- AlterTable
-ALTER TABLE "User" ALTER COLUMN "role" SET DEFAULT 'ADMIN',
-ALTER COLUMN "status" DROP NOT NULL;

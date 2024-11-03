@@ -70,15 +70,15 @@ class SaleService {
         }
 
        
-        // const price = detail.price !== undefined && detail.price !== null ? new Decimal(detail.price) : new Decimal(product.sale_price);
-        const price = detail.sale_price !== undefined && detail.sale_price !== null ? new Decimal(detail.sale_price) : new Decimal(product.sale_price);
+        const price = detail.price !== undefined && detail.price !== null ? new Decimal(detail.price) : new Decimal(product.sale_price);
+        // const price = detail.sale_price !== undefined && detail.sale_price !== null ? new Decimal(detail.sale_price) : new Decimal(product.sale_price);
 
        
         const amount = price.times(detail.sale_quantity);
 
         detail.amount = amount.toFixed(2);
-        // detail.price = price.toFixed(2);   
-        detail.sale_price = price.toFixed(2);   
+        detail.price = price.toFixed(2);   
+        // detail.sale_price = price.toFixed(2);   
       }
 
       const sale = await prisma.sale.create({
@@ -93,8 +93,8 @@ class SaleService {
               id_product: detail.id_product,
               sale_quantity: detail.sale_quantity,
               amount: detail.amount,
-              // price: detail.price,
-              price: detail.sale_price,
+              price: detail.price,
+              // price: detail.sale_price,
             })),
           },
         },

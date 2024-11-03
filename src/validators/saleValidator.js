@@ -23,14 +23,17 @@ const addSaleValidator = [
     .isEmpty()
     .withMessage('Date of sale ID is required!')
     .bail(),
-
+  check('name')
+    .isLength({ min: 3 })
+    .withMessage('Name must be at least 4 characters long!')
+    .bail(),
   check('saleDetails.*.sale_quantity')
     .not()
     .isEmpty()
     .withMessage('Quantity is required!')
     .bail()
-    .isInt({ gt: 0 })
-    .withMessage('Quantity must be a positive integer!')
+    .isInt({ min: 1 })
+    .withMessage('Quantity must be a number greater than zero')
     .bail(),
   (req, res, next) => {
     const errors = validationResult(req);

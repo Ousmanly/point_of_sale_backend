@@ -10,5 +10,6 @@ productRoute.get('/products',authMiddleware, ProductController.getAllProducts)
 productRoute.post('/products', authMiddleware, roleAdminMiddleware, addRequestProductValidator, ProductController.createProduct)
 productRoute.put('/products/:id', authMiddleware, roleAdminMiddleware, updateProductValidatore, ProductController.updateProduct)
 productRoute.delete('/products/:id', authMiddleware, roleAdminMiddleware, deleteProductValidatore, ProductController.deleteProduct)
+productRoute.put('/products/:id/status', ProductController.updateProductStatus);
 
 export default productRoute 

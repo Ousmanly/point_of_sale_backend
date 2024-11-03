@@ -8,6 +8,10 @@ import prisma from "../config/prisma.js";
 config() 
 const JWT_SECRET = process.env.JWT_SECRET
 const JWT_EXPIRATION = process.env.JWT_EXPIRATION
+
+//////////
+const REFRESH_SECRET = process.env.REFRESH_SECRET || 'refresh_secret_key';
+const REFRESH_EXPIRATION = process.env.REFRESH_EXPIRATION || '7d';
 class UserService{
 
 
@@ -193,13 +197,57 @@ class UserService{
                 JWT_SECRET,
                 { expiresIn: JWT_EXPIRATION }
             );
+            // const token = jwt.sign(
+            //     { id: user.id, name: user.name, role: user.role },
+            //     JWT_SECRET,
+            //     { expiresIn: JWT_EXPIRATION }
+            // );
+
+            // const refreshToken = jwt.sign(
+            //     { id: user.id },
+            //     REFRESH_SECRET,
+            //     { expiresIn: REFRESH_EXPIRATION }
+            // );
+
+            // Stocker le refresh token dans la base de données
+            // await prisma.user.update({
+            //     where: { id: user.id },
+            //     data: { refreshToken }
+            // });
+
 
             // return { token };
             return { token, user: { id: user.id, name: user.name, role: user.role } };
+            // return { token, refreshToken, user: { id: user.id, name: user.name, role: user.role } };
         } catch (error) {
             throw error;
         }
     }
+    // static async refreshAccessToken(refreshToken) {
+    //     try {
+    //         // Vérifier le token de rafraîchissement
+    //         const decoded = jwt.verify(refreshToken, REFRESH_SECRET);
+    //         const user = await prisma.user.findUnique({
+    //             where: { id: decoded.id },
+    //         });
+
+    //         if (!user || user.refreshToken !== refreshToken) {
+    //             throw new Error("Invalid refresh token");
+    //         }
+
+    //         // Générer un nouveau token d'accès
+    //         const token = jwt.sign(
+    //             { id: user.id, name: user.name, role: user.role },
+    //             JWT_SECRET,
+    //             { expiresIn: JWT_EXPIRATION }
+    //         );
+
+    //         return { token };
+    //     } catch (error) {
+    //         throw new Error("Refresh token expired or invalid");
+    //     }
+    // }
+
    
 }
 export default UserService

@@ -3,7 +3,7 @@
         "createSale": "Sale has been created",
         "deleteSale": "Sale has been deleted",
         "getSales": "Here are the sales",
-        "errorSale": "An error occurred while processing the sale",
+        "errorSale": "Insufficient stock for this product",
         "createUser": "User has been created",
         "updateUser": "User has been updated",
         "deleteUser": "User has been deleted",

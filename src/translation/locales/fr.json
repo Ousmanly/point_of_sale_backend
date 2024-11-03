@@ -3,7 +3,7 @@
         "createSale": "La vente a été créée",
         "deleteSale": "La vente a été supprimée",
         "getSales": "Voici les ventes",
-        "errorSale": "Une erreur s'est produite lors du traitement de la vente",
+        "errorSale": "Stock de se produit est insuffisant",
         "createUser": "L'utilisateur a été créé",
         "updateUser": "L'utilisateur a été mis à jour",
         "deleteUser": "L'utilisateur a été supprimé",

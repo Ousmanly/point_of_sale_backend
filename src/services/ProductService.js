@@ -8,7 +8,7 @@ config();
 
 const JWT_SECRET = process.env.JWT_SECRET;
 class ProductService {
-    
+
     static async checkProduct(code_bare, id = null) {
         try {
             if (id) {
@@ -36,10 +36,10 @@ class ProductService {
 
     static async checkProductById(id) {
         try {
-          const result = await prisma.product.findFirst({where: {id}})
-          return result ? true : false;
+            const result = await prisma.product.findFirst({ where: { id } })
+            return result ? true : false;
         } catch (error) {
-          throw error;
+            throw error;
         }
     }
     // static async checkProductByUserId(id_user) {
@@ -50,10 +50,28 @@ class ProductService {
     //       throw error;
     //     }
     //   }
-    static async getProducts(){
+
+    // "name": "Product 2",
+    // "stock": 25,
+    // "sale_price": "150",
+    // "purchase_price": "100",
+    // "seuil": 30,
+    // "code_bare": "FFG3443R4E",
+    // "status": false
+    static async getProducts() {
         try {
             const products = await prisma.product.findMany({
-                include: {
+                select: {
+                    id: true,
+                    name: true,
+                    stock: true,
+                    sale_price: true,
+                    purchase_price: true,
+                    seuil: true,
+                    code_bare: true,
+                    status: true,
+                    created_at: true,
+                    updated_at:true,
                     user: {
                         select: {
                             id: true,
@@ -68,21 +86,23 @@ class ProductService {
         }
     }
 
-    static async createProduct(token, name, stock, sale_price, purchase_price, seuil, code_bare) {
+    static async createProduct(token, name, stock, sale_price, purchase_price, seuil, code_bare, status) {
         try {
             const decoded = jwt.verify(token, JWT_SECRET);
-            const id_user = decoded.id; 
-            
+            const id_user = decoded.id;
+
             const newProduct = await prisma.product.create({
                 data: {
                     name: name,
                     stock: stock,
                     sale_price: sale_price,
-                    purchase_price:purchase_price,
+                    status: status,
+                    purchase_price: purchase_price,
                     seuil: seuil,
                     code_bare: code_bare,
                     created_at: new Date(),
-                    id_user: id_user 
+                    updated_at: new Date(),
+                    id_user: id_user
                 }
             });
 
@@ -95,16 +115,16 @@ class ProductService {
     static async updateProduct(token, id, name, sale_price, purchase_price, seuil, code_bare) {
         try {
             const decoded = jwt.verify(token, JWT_SECRET);
-            const id_user = decoded.id; 
-            
+            const id_user = decoded.id;
+
             const updatedProduct = await prisma.product.update({
                 where: {
                     id: id
                 },
                 data: {
                     name: name,
-                    sale_price:sale_price,
-                    purchase_price:purchase_price,
+                    sale_price: sale_price,
+                    purchase_price: purchase_price,
                     seuil: seuil,
                     code_bare: code_bare,
                     updated_at: new Date(),
@@ -119,10 +139,10 @@ class ProductService {
     }
     static async getProductById(id) {
         try {
-          const result = await prisma.product.findFirst({where: {id}})
-          return result
+            const result = await prisma.product.findFirst({ where: { id } })
+            return result
         } catch (error) {
-          throw error;
+            throw error;
         }
     }
     static async deleteProduct(id) {
@@ -135,6 +155,6 @@ class ProductService {
             throw error;
         }
     }
-}   
+}
 
 export default ProductService;

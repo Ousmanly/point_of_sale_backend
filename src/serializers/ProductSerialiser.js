@@ -11,6 +11,7 @@ export const ProductSerializer = {
                 created_at: entity.created_at,
                 updated_at: entity.updated_at,
                 code_bare: entity.code_bare,
+                status: entity.status,
                 user_id: entity.user.id,
                 user_name: entity.user.name,
             }

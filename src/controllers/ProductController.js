@@ -1,5 +1,6 @@
 // import UserService from "../services/UserService.js";
 
+import prisma from "../config/prisma.js";
 import ProductService from "../services/ProductService.js";
 
 class ProductController{
@@ -10,9 +11,9 @@ class ProductController{
 
     static async createProduct(req, res, next) {
         const token = req.headers.authorization.split(' ')[1];
-        const { name, stock, sale_price, purchase_price, seuil, code_bare } = req.body;
+        const { name, stock, sale_price, purchase_price, seuil, code_bare, status } = req.body;
         try {
-            await ProductService.createProduct(token, name, stock, sale_price, purchase_price, seuil, code_bare);
+            await ProductService.createProduct(token, name, stock, sale_price, purchase_price, seuil, code_bare, status);
             // res.status(201).json({message:"product has been created"});
             res.status(201).json({ message: req.t('message.createProduct') });
         } catch (error) {
@@ -37,7 +38,20 @@ class ProductController{
         }
         next()
     }
-
+    static async updateProductStatus(req, res){
+        const productId = parseInt(req.params.id, 10); // Récupérer l'ID depuis les paramètres de la requête
+        const { status } = req.body; // Récupérer le statut depuis le corps de la requête
+      
+        try {
+          const user = await prisma.product.update({
+            where: { id: productId },
+            data: { status: status },
+          });
+          res.status(200).json({ message: 'Product status updated successfully', user });
+        } catch (error) {
+          res.status(500).json({ message: 'Error updating product status', error });
+        }
+      };
     static async deleteProduct(req, res, next) {
         const {id} = req.params; 
         try {

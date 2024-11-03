@@ -1,2 +1,0 @@
--- AlterTable
-ALTER TABLE "Supplier" ALTER COLUMN "phone" SET DATA TYPE VARCHAR(50);

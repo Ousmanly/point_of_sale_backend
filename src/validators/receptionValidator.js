@@ -43,8 +43,8 @@ const addRequestReceptionValidator = [
     .isEmpty()
     .withMessage('quantity id is required!')
     .bail()
-    .isInt({ gt: 0 })
-    .withMessage("quantity must be a positive number!"),
+    .isInt({ min: 1 })
+    .withMessage('Quantity must be a number greater than zero'),
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty())
