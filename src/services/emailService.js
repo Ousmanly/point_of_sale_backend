@@ -1,13 +1,13 @@
-import nodemailer from 'nodemailer';
+// import nodemailer from 'nodemailer';
+import transporter from "../config/transporter.js";
 
-
-const transporter = nodemailer.createTransport({
-  service: 'gmail', 
-  auth: {
-    user: process.env.EMAIL_USER, 
-    pass: process.env.EMAIL_PASS, 
-  },
-});
+// const transporter = nodemailer.createTransport({
+//   service: 'gmail', 
+//   auth: {
+//     user: process.env.EMAIL_USER, 
+//     pass: process.env.EMAIL_PASS, 
+//   },
+// });
 
 const sendStockAlert = async (adminEmails, productName, stock, seuil) => {
     console.log(`Envoi d'une alerte de stock pour le produit: ${productName}, stock actuel: ${stock}, seuil: ${seuil}`);

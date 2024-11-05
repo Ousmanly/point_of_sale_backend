@@ -41,6 +41,7 @@ app.use(helmet())
 
 app.use(middleware.handle(i18n)); 
 
+// app.use(express.json());
 
 // const corsOptions = {
 //     origin: 'http://localhost:5174',

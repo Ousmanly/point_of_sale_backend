@@ -14,4 +14,7 @@ userRoute.delete('/users/:id', authMiddleware, roleAdminMiddleware, deleteUserVa
 userRoute.get('/user', authMiddleware, UserController.getCurrentUser);
 userRoute.put('/users/:id/status', UserController.updateUserStatus);
 
+userRoute.post('/request-password-reset', UserController.requestPasswordReset);
+userRoute.post('/reset-password', UserController.resetPassword);
+
 export default userRoute

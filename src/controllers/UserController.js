@@ -77,5 +77,26 @@ class UserController{
           res.status(500).json({ error: "Erreur serveur" });
         }
       }
+
+
+    static async requestPasswordReset(req, res) {
+        const { email } = req.body;
+        try {
+            const response = await UserService.sendPasswordResetEmail(email);
+            res.status(200).json(response);
+        } catch (error) {
+            res.status(400).json({ message: error.message });
+        }
+    }
+
+    static async resetPassword(req, res) {
+        const { token, newPassword } = req.body;
+        try {
+            const response = await UserService.resetPassword(token, newPassword);
+            res.status(200).json(response);
+        } catch (error) {
+            res.status(400).json({ message: error.message });
+        }
+    }
 }
 export default UserController
