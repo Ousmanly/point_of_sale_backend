@@ -63,7 +63,7 @@ const deleteSaleValidator = [
       }
       return true;
     }),
-  
+
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -75,7 +75,4 @@ const deleteSaleValidator = [
   },
 ];
 
-export {
-  addSaleValidator,
-  deleteSaleValidator
-};
+export { addSaleValidator, deleteSaleValidator };

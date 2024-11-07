@@ -21,6 +21,4 @@ authrouter.post('/login', Login.login);
 //     }
 // });
 
-
-
 export default authrouter;

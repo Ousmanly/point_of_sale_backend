@@ -14,12 +14,12 @@ i18n
     // fallbackLng: 'en', // Langue par défaut
     preload: ['fr', 'en', 'ar'],
     backend: {
-        loadPath: path.join(__dirname, '../translation/locales/{{lng}}.json')
+      loadPath: path.join(__dirname, '../translation/locales/{{lng}}.json'),
     },
     detection: {
-      order: ['querystring', 'cookie', 'header'], 
-      caches: ['cookie']
-    }
+      order: ['querystring', 'cookie', 'header'],
+      caches: ['cookie'],
+    },
   });
 
 export default i18n;

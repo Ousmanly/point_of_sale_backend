@@ -34,24 +34,24 @@
 //                 }
 //             ]
 export const SaleSerializer = {
-    serializerForTable(entities) {
-        return entities.map(entity => {
-            return {
-                id: entity.id,
-                created_at: entity.created_at,
-                sale_at: entity.sale_at,
-                name: entity.name,
-                email: entity.email,
-                phone: entity.phone,
-                user_name: entity.user?.name,
-                // Traitez chaque détail de réception si plusieurs
-                sale_details: entity.SaleDetail.map(detail => ({
-                    amount: detail.amount,
-                    sale_quantity: detail.sale_quantity,
-                    price: detail.price,
-                    product_name: detail.product?.name // Accède au nom du produit
-                }))
-            }
-        });
-    }
-}
+  serializerForTable(entities) {
+    return entities.map((entity) => {
+      return {
+        id: entity.id,
+        created_at: entity.created_at,
+        sale_at: entity.sale_at,
+        name: entity.name,
+        email: entity.email,
+        phone: entity.phone,
+        user_name: entity.user?.name,
+        // Traitez chaque détail de réception si plusieurs
+        sale_details: entity.SaleDetail.map((detail) => ({
+          amount: detail.amount,
+          sale_quantity: detail.sale_quantity,
+          price: detail.price,
+          product_name: detail.product?.name, // Accède au nom du produit
+        })),
+      };
+    });
+  },
+};

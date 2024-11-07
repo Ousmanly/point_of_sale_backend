@@ -10,17 +10,17 @@ const addRequestInventoryValidator = [
     .withMessage('product id is required!')
     .bail()
     .custom(async (value) => {
-        const id = parseInt(value)
-        const idExists = await ProductService.checkProductById(id);
-        if (!idExists) {
+      const id = parseInt(value);
+      const idExists = await ProductService.checkProductById(id);
+      if (!idExists) {
         throw new Error('product not found!');
-        }
-        return true;
+      }
+      return true;
     }),
   check('remarque')
-    .isLength({max:250})
+    .isLength({ max: 250 })
     .withMessage('Max caracter for remarque is 250'),
-    check('quantity')
+  check('quantity')
     .isInt({ min: 1 })
     .withMessage('Quantity must be a number greater than zero'),
   (req, res, next) => {
@@ -33,8 +33,4 @@ const addRequestInventoryValidator = [
   },
 ];
 
-
-export {
-    addRequestInventoryValidator,
-};
-
+export { addRequestInventoryValidator };

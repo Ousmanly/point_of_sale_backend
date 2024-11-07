@@ -10,7 +10,7 @@ const addRequestUserValidator = [
     .isEmpty()
     .withMessage('name is required!')
     .bail()
-    .isString() 
+    .isString()
     .withMessage("name can't be a number!")
     .bail()
     .isLength({ min: 3 })
@@ -40,7 +40,7 @@ const addRequestUserValidator = [
     .withMessage('email is required!')
     .bail()
     .isEmail()
-    .withMessage("enter email valid!")
+    .withMessage('enter email valid!')
     .bail()
     .custom(async (value) => {
       const emailExists = await UserService.checkUser(value);
@@ -68,7 +68,7 @@ const updateUserValidatore = [
     .withMessage('Id must be a number!')
     .bail()
     .custom(async (value) => {
-      const id = parseInt(value)
+      const id = parseInt(value);
       const idExists = await UserService.checkUserById(id);
       if (!idExists) {
         throw new Error('User not found!');
@@ -103,7 +103,7 @@ const updateUserValidatore = [
     .withMessage('email is required!')
     .bail()
     .isEmail()
-    .withMessage("enter email valid!")
+    .withMessage('enter email valid!')
     .bail()
     .isLength({ min: 3 })
     .withMessage('email must be at least 3 characters long!')
@@ -135,7 +135,7 @@ const deleteUserValidatore = [
     .withMessage('Id must be a number!')
     .bail()
     .custom(async (value) => {
-      const id = parseInt(value,10)
+      const id = parseInt(value, 10);
       const idExists = await UserService.checkUserById(id);
       if (!idExists) {
         throw new Error('User not found!');
@@ -143,33 +143,42 @@ const deleteUserValidatore = [
       return true;
     })
     .custom(async (value) => {
-        const id = parseInt(value, 10);
-        const isAttachedToSupplier = await UserService.checkSupplierByUserId(id); // Utilisez la nouvelle méthode
-        if (isAttachedToSupplier) {
-          throw new Error('Cannot delete this user because they are attached to a supplier!');
-        }
-        const isAttachedToProduct = await UserService.checkProductByUserId(id); // Utilisez la nouvelle méthode
-        if (isAttachedToProduct) {
-          throw new Error('Cannot delete this user because they are attached to a product!');
-        }
-        const isAttachedToReception = await UserService.checkReceptionByUserId(id); // Utilisez la nouvelle méthode
-        if (isAttachedToReception) {
-          throw new Error('Cannot delete this user because they are attached to a reception!');
-        }
-        const isAttachedMouvement = await UserService.checkMouvementByUserId(id); // Utilisez la nouvelle méthode
-        if (isAttachedMouvement) {
-          throw new Error('Cannot delete this user because they are attached to a mouvement!');
-        }
-        return true;
-      }),
-    // .custom(async (value) => {
-    //     const id = parseInt(value, 10);
-    //     const isAttachedToProduct = await UserService.checkProductByUserId(id); // Utilisez la nouvelle méthode
-    //     if (isAttachedToProduct) {
-    //       throw new Error('Cannot delete this user because they are attached to a product!');
-    //     }
-    //     return true;
-    //   }),
+      const id = parseInt(value, 10);
+      const isAttachedToSupplier = await UserService.checkSupplierByUserId(id); // Utilisez la nouvelle méthode
+      if (isAttachedToSupplier) {
+        throw new Error(
+          'Cannot delete this user because they are attached to a supplier!'
+        );
+      }
+      const isAttachedToProduct = await UserService.checkProductByUserId(id); // Utilisez la nouvelle méthode
+      if (isAttachedToProduct) {
+        throw new Error(
+          'Cannot delete this user because they are attached to a product!'
+        );
+      }
+      const isAttachedToReception =
+        await UserService.checkReceptionByUserId(id); // Utilisez la nouvelle méthode
+      if (isAttachedToReception) {
+        throw new Error(
+          'Cannot delete this user because they are attached to a reception!'
+        );
+      }
+      const isAttachedMouvement = await UserService.checkMouvementByUserId(id); // Utilisez la nouvelle méthode
+      if (isAttachedMouvement) {
+        throw new Error(
+          'Cannot delete this user because they are attached to a mouvement!'
+        );
+      }
+      return true;
+    }),
+  // .custom(async (value) => {
+  //     const id = parseInt(value, 10);
+  //     const isAttachedToProduct = await UserService.checkProductByUserId(id); // Utilisez la nouvelle méthode
+  //     if (isAttachedToProduct) {
+  //       throw new Error('Cannot delete this user because they are attached to a product!');
+  //     }
+  //     return true;
+  //   }),
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty())
@@ -180,9 +189,4 @@ const deleteUserValidatore = [
   },
 ];
 
-export {
-  addRequestUserValidator,
-  updateUserValidatore,
-  deleteUserValidatore
-};
-
+export { addRequestUserValidator, updateUserValidatore, deleteUserValidatore };

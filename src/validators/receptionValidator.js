@@ -11,14 +11,14 @@ const addRequestReceptionValidator = [
     .bail()
     .toInt()
     .custom(async (value) => {
-        const id = parseInt(value)
-        const idExists = await SupplierService.checkSupplierById(id);
-        if (!idExists) {
-          throw new Error('supplier not found!');
-        }
-        return true;
-      })
-      .bail(),
+      const id = parseInt(value);
+      const idExists = await SupplierService.checkSupplierById(id);
+      if (!idExists) {
+        throw new Error('supplier not found!');
+      }
+      return true;
+    })
+    .bail(),
   check('recepted_at')
     .not()
     .isEmpty()
@@ -30,12 +30,12 @@ const addRequestReceptionValidator = [
     .withMessage('product id is required!')
     .bail()
     .custom(async (value) => {
-        const id = parseInt(value)
-        const idExists = await ProductService.checkProductById(id);
-        if (!idExists) {
+      const id = parseInt(value);
+      const idExists = await ProductService.checkProductById(id);
+      if (!idExists) {
         throw new Error('product not found!');
-        }
-        return true;
+      }
+      return true;
     })
     .bail(),
   check('receptionDetails.*.quantity')
@@ -63,13 +63,13 @@ const deleteReceptionValidatore = [
     .bail()
     .toInt()
     .custom(async (value) => {
-        const id = parseInt(value)
-        const idExists = await ReceptionService.checkReceptionById(id);
-        if (!idExists) {
-          throw new Error('reception not found!');
-        }
-        return true;
-      }),
+      const id = parseInt(value);
+      const idExists = await ReceptionService.checkReceptionById(id);
+      if (!idExists) {
+        throw new Error('reception not found!');
+      }
+      return true;
+    }),
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty())
@@ -80,8 +80,4 @@ const deleteReceptionValidatore = [
   },
 ];
 
-export {
-  addRequestReceptionValidator,
-  deleteReceptionValidatore
-};
-
+export { addRequestReceptionValidator, deleteReceptionValidatore };

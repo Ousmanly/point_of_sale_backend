@@ -25,11 +25,7 @@ const addRequestProductValidator = [
     .isEmpty()
     .withMessage('purchase_price is required!')
     .bail(),
-  check('seuil')
-    .not()
-    .isEmpty()
-    .withMessage('seuil is required!')
-    .bail(),
+  check('seuil').not().isEmpty().withMessage('seuil is required!').bail(),
   check('code_bare')
     .not()
     .isEmpty()
@@ -61,7 +57,7 @@ const updateProductValidatore = [
     .withMessage('Id must be a number!')
     .bail()
     .custom(async (value) => {
-      const id = parseInt(value)
+      const id = parseInt(value);
       const idExists = await ProductService.checkProductById(id);
       if (!idExists) {
         throw new Error('product not found!');
@@ -69,7 +65,7 @@ const updateProductValidatore = [
       return true;
     })
     .bail(),
-    check('name')
+  check('name')
     .not()
     .isEmpty()
     .withMessage('name is required!')
@@ -80,7 +76,7 @@ const updateProductValidatore = [
     .isLength({ min: 3 })
     .withMessage('name must be at least 3 characters long!')
     .bail(),
-    check('sale_price')
+  check('sale_price')
     .not()
     .isEmpty()
     .withMessage('sale_price is required!')
@@ -90,11 +86,7 @@ const updateProductValidatore = [
     .isEmpty()
     .withMessage('purchase_price is required!')
     .bail(),
-  check('seuil')
-    .not()
-    .isEmpty()
-    .withMessage('seuil is required!')
-    .bail(),
+  check('seuil').not().isEmpty().withMessage('seuil is required!').bail(),
   check('code_bare')
     .not()
     .isEmpty()
@@ -130,7 +122,7 @@ const deleteProductValidatore = [
     .withMessage('Id must be a number!')
     .bail()
     .custom(async (value) => {
-      const id = parseInt(value)
+      const id = parseInt(value);
       const idExists = await ProductService.checkProductById(id);
       if (!idExists) {
         throw new Error('Product not found!');
@@ -149,8 +141,7 @@ const deleteProductValidatore = [
 ];
 
 export {
-    addRequestProductValidator,
-    updateProductValidatore,
-    deleteProductValidatore
+  addRequestProductValidator,
+  updateProductValidatore,
+  deleteProductValidatore,
 };
-
