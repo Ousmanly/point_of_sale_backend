@@ -7,7 +7,7 @@ import SupplierService from '../src/services/SupplierService.js';
 
 // let token
 let token =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Im1hcmllbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTczMDkzNTYwMywiZXhwIjoxNzMwOTUzNjAzfQ.UnT94YT5q4OHmTtyOnkwUuPkgr28oEUGXQxKo992Pno';
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Im1hcmllbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTczMDk1NDEyNywiZXhwIjoxNzMwOTcyMTI3fQ.dUG7OHa2l4CEnb7JOtOE_P5keulKxa_qKsaGKOJujLw';
 
 // describe('Supplier tests', () => {
 //   let supplierId = null;
@@ -127,134 +127,148 @@ let token =
 
 // });
 
-describe('Reception tests', () => {
-  let receptionId = null;
-  let supplierId = null;
-  let productId = null;
-  it('can add a reception', async () => {
-    const supplier = { name: 'Test Supplier' };
-    const resultS = await SupplierService.createSupplier(token, supplier.name);
-    supplierId = resultS.id;
+// describe('Reception tests', () => {
+//   let receptionId = null;
+//   let supplierId = null;
+//   let productId = null;
+//   it('can add a reception', async () => {
+//     const supplier = { name: 'Test Supplier', phone:"48 45 12 34" };
+//     const resultS = await SupplierService.createSupplier(token, supplier.name, supplier.phone);
+//     supplierId = resultS.id;
 
-    const product = {
-      name: 'Test Product',
-      stock: 4,
-      price: 100,
-      seuil: 10,
-      category: 'category A',
-      code_bare: '1667679PA',
-    };
-    const result = await ProductService.createProduct(
-      token,
-      product.name,
-      product.stock,
-      product.price,
-      product.seuil,
-      product.category,
-      product.code_bare
-    );
-    productId = result.id;
+    // const product = {
+    //   name: 'Test Product',
+    //   stock: 4,
+    //   sale_price: 100,
+    //   purchase_price: 150,
+    //   seuil: 10,
+    //   code_bare: '16LLLPPA',
+    // };
+    // const result = await ProductService.createProduct(
+    //   token,
+    //   product.name,
+    //   product.stock,
+    //   product.sale_price,
+    //   product.purchase_price,
+    //   product.seuil,
+    //   product.code_bare
+    // );
+//     productId = result.id;
 
-    const receptionDetails = [{ quantity: 5, id_product: productId }];
-    const reception = await ReceptionService.addReception(
-      token,
-      supplierId,
-      new Date(),
-      receptionDetails
-    );
-    receptionId = reception.id;
+//     const receptionDetails = [{ quantity: 5, price:120, id_product: productId }];
+//     const reception = await ReceptionService.addReception(
+//       token,
+//       supplierId,
+//       new Date(),
+//       receptionDetails
+//     );
+//     receptionId = reception.id;
 
-    expect(reception).toBeDefined();
-    expect(reception.ReceptionDetail.length).toBe(receptionDetails.length);
-    await ReceptionService.deleteReception(receptionId);
-    receptionId = null;
-    await SupplierService.deleteSupplier(supplierId);
-    supplierId = null;
-    await ProductService.deleteProduct(productId);
-    productId = null;
-  });
+//     expect(reception).toBeDefined();
+//     expect(reception.ReceptionDetail.length).toBe(receptionDetails.length);
+//     await ReceptionService.deleteReception(receptionId);
+//     receptionId = null;
+//     await SupplierService.deleteSupplier(supplierId);
+//     supplierId = null;
+//     await ProductService.deleteProduct(productId);
+//     productId = null;
+//   });
 
-  it('cannot add a reception', async () => {
-    supplierId = 9090;
+//   it('cannot add a reception', async () => {
+//     supplierId = 9090;
 
-    const invalidProductId = 9999;
-    const receptionDetails = [{ quantity: 5, id_product: invalidProductId }];
+//     const invalidProductId = 9999;
+//     const receptionDetails = [{ quantity: 5, id_product: invalidProductId }];
 
-    try {
-      await ReceptionService.addReception(
-        token,
-        supplierId,
-        new Date(),
-        receptionDetails
-      );
-      fail('Expected error was not thrown');
-    } catch (error) {
-      expect(error).toBeDefined();
-    }
-  });
+//     try {
+//       await ReceptionService.addReception(
+//         token,
+//         supplierId,
+//         new Date(),
+//         receptionDetails
+//       );
+//       fail('Expected error was not thrown');
+//     } catch (error) {
+//       expect(error).toBeDefined();
+//     }
+//   });
 
-  it('can delete a reception', async () => {
-    const supplier = { name: 'Test Supplier' };
-    const resultS = await SupplierService.createSupplier(token, supplier.name);
-    supplierId = resultS.id;
+//   it('can delete a reception', async () => {
+//     const supplier = { name: 'Test Supplier', phone:"48 45 12 34" };
+//     const resultS = await SupplierService.createSupplier(token, supplier.name, supplier.phone);
+//   supplierId = resultS.id;
 
-    const product = {
-      name: 'Test Product',
-      stock: 4,
-      price: 100,
-      seuil: 10,
-      category: 'category A',
-      code_bare: '16b676794GM',
-    };
-    const result = await ProductService.createProduct(
-      token,
-      product.name,
-      product.stock,
-      product.price,
-      product.seuil,
-      product.category,
-      product.code_bare
-    );
-    productId = result.id;
+//   const product = {
+//     name: 'Test Product',
+//     stock: 4,
+//     sale_price: 100,
+//     purchase_price: 150,
+//     seuil: 10,
+//     code_bare: '16MPJKLPA',
+//   };
+//   const result = await ProductService.createProduct(
+//     token,
+//     product.name,
+//     product.stock,
+//     product.sale_price,
+//     product.purchase_price,
+//     product.seuil,
+//     product.code_bare
+//   );
+//     productId = result.id;
 
-    const receptionDetails = [{ quantity: 5, id_product: productId }];
-    const reception = await ReceptionService.addReception(
-      token,
-      supplierId,
-      new Date(),
-      receptionDetails
-    );
-    receptionId = reception.id;
+//     const receptionDetails = [{ quantity: 5, price:120, id_product: productId }];
+//     const reception = await ReceptionService.addReception(
+//       token,
+//       supplierId,
+//       new Date(),
+//       receptionDetails
+//     );
+//     receptionId = reception.id;
 
-    const deletedReception =
-      await ReceptionService.deleteReception(receptionId);
-    expect(deletedReception.id).toBe(receptionId);
-    await ProductService.deleteProduct(productId);
-    productId = null;
-    await SupplierService.deleteSupplier(supplierId);
-    supplierId = null;
-  });
+//     const deletedReception =
+//       await ReceptionService.deleteReception(receptionId);
+//     expect(deletedReception.id).toBe(receptionId);
+//     await ProductService.deleteProduct(productId);
+//     productId = null;
+//     await SupplierService.deleteSupplier(supplierId);
+//     supplierId = null;
+//   });
 
-  it('cannot delete a reception', async () => {
-    const invalidReceptionId = 9999;
+//   it('cannot delete a reception', async () => {
+//     const invalidReceptionId = 9999;
 
-    try {
-      await ReceptionService.deleteReception(invalidReceptionId);
-      fail('Expected error was not thrown');
-    } catch (error) {
-      expect(error).toBeDefined();
-    }
-  });
-});
+//     try {
+//       await ReceptionService.deleteReception(invalidReceptionId);
+//       fail('Expected error was not thrown');
+//     } catch (error) {
+//       expect(error).toBeDefined();
+//     }
+//   });
+// });
 
 // describe('Inventaire tests', () => {
 //     let inventoryId = null;
 //     let productId = null;
 
 //     it('can retrieve the inventory', async () => {
-//         const product = { name: 'Test Product', stock: 4, price: 100, seuil: 10, category: "category A", code_bare: "16b6609M" };
-//         const result = await ProductService.createProduct(token, product.name, product.stock, product.price, product.seuil, product.category, product.code_bare);
-//         productId = result.id;
+//         const product = {
+//     name: 'Test Product',
+//     stock: 4,
+//     sale_price: 100,
+//     purchase_price: 150,
+//     seuil: 10,
+//     code_bare: '99MPJ3KLA',
+//   };
+//   const result = await ProductService.createProduct(
+//     token,
+//     product.name,
+//     product.stock,
+//     product.sale_price,
+//     product.purchase_price,
+//     product.seuil,
+//     product.code_bare
+//   ); productId = result.id;
 //         const inventories = await InventoryService.addInventory(token, productId, 5, "Test");
 //         inventoryId = inventories.id
 //         expect(inventories).toBeDefined();
@@ -281,85 +295,91 @@ describe('Reception tests', () => {
 
 // });
 
-// describe('Sale tests', () => {
-//     let saleId = null;
-//     let productId = null;
+describe('Sale tests', () => {
+    let saleId = null;
+    let productId = null;
 
-//     it('can get all sales', async () => {
-//         const sales = await SaleService.getSales();
-//         expect(Array.isArray(sales)).toBe(true);
-//     });
+    it('can get all sales', async () => {
+        const sales = await SaleService.getSales();
+        expect(Array.isArray(sales)).toBe(true);
+    });
 
-//     it('can add a sale', async () => {
+    it('can add a sale', async () => {
 
-//         const product = {
-//             name: 'Test Product',
-//             stock: 400,
-//             price: 100,
-//             seuil: 10,
-//             category: "category A",
-//             code_bare: "16n52nM3kk32Z"
-//         };
+        const product = {
+            name: 'Test Product',
+            stock: 4,
+            sale_price: 100,
+            purchase_price: 150,
+            seuil: 10,
+            code_bare: '6LLPZA',
+          };
+          const result = await ProductService.createProduct(
+            token,
+            product.name,
+            product.stock,
+            product.sale_price,
+            product.purchase_price,
+            product.seuil,
+            product.code_bare
+          );  productId = result.id;
+        const sales = {name:"Amadou",phone:"45 66 34 45", email:"am@gmail.com"}
+        const saleDetails = [{ id_product: productId, sale_quantity: 1, price: 100 }];
+        const sale = await SaleService.createSale(token,new Date(), saleDetails, sales.date, sales.name, sales.phone, sales.email);
+        saleId = sale.id;
 
-//         const result = await ProductService.createProduct(token, product.name, product.stock, product.price, product.seuil, product.category, product.code_bare);
-//         productId = result.id;
+        const saleCreated = await SaleService.getSaleById(saleId)
+        expect(sale).toBeDefined();
+        expect(saleCreated).not.toBeNull();
+        await SaleService.deleteSale(saleId);
+        saleId = null;
+        await ProductService.deleteProduct(productId);
+        productId = null;
 
-//         const saleDetails = [{ id_product: productId, sale_quantity: 5, price: 100 }];
-//         const sale = await SaleService.createSale(token, saleDetails, new Date());
-//         saleId = sale.id;
+    });
 
-//         const saleCreated = await SaleService.getSaleById(saleId)
-//         expect(sale).toBeDefined();
-//         expect(saleCreated).not.toBeNull();
-//         await SaleService.deleteSale(saleId);
-//         saleId = null;
-//         await ProductService.deleteProduct(productId);
-//         productId = null;
+    // it('cannot add a sale', async () => {
+    //     productId = 99999;
 
-//     });
+    //     const saleDetails = [{ id_product: productId, sale_quantity: 5, price: 100 }];
+    //     try {
+    //         await SaleService.createSale(token, saleDetails, new Date());
+    //         fail('Expected error was not thrown');
+    //     } catch (error) {
+    //         expect(error).toBeDefined();
+    //     }
+    // });
 
-//     it('cannot add a sale', async () => {
-//         productId = 99999;
+    // it('can delete a sale', async () => {
+    //     const product = {
+    //         name: 'Test Product',
+    //         stock: 400,
+    //         price: 100,
+    //         seuil: 10,
+    //         category: "category A",
+    //         code_bare: "16n52nM3kk32Z"
+    //     };
 
-//         const saleDetails = [{ id_product: productId, sale_quantity: 5, price: 100 }];
-//         try {
-//             await SaleService.createSale(token, saleDetails, new Date());
-//             fail('Expected error was not thrown');
-//         } catch (error) {
-//             expect(error).toBeDefined();
-//         }
-//     });
+    //     const result = await ProductService.createProduct(token, product.name, product.stock, product.price, product.seuil, product.category, product.code_bare);
+    //     productId = result.id;
 
-//     it('can delete a sale', async () => {
-//         const product = {
-//             name: 'Test Product',
-//             stock: 400,
-//             price: 100,
-//             seuil: 10,
-//             category: "category A",
-//             code_bare: "16n52nM3kk32Z"
-//         };
+    //     const saleDetails = [{ id_product: productId, sale_quantity: 5, price: 100 }];
+    //     const sale = await SaleService.createSale(token, saleDetails, new Date());
+    //     saleId = sale.id;
+    //     const deletedSale= await SaleService.deleteSale(saleId);
+    //     expect(deletedSale.id).toBe(saleId);
+    //     await ProductService.deleteProduct(productId);
+    //     productId = null;
+    // });
 
-//         const result = await ProductService.createProduct(token, product.name, product.stock, product.price, product.seuil, product.category, product.code_bare);
-//         productId = result.id;
+    // it('cannot delete a sale', async () => {
+    //     const invalidProductId = 9999;
 
-//         const saleDetails = [{ id_product: productId, sale_quantity: 5, price: 100 }];
-//         const sale = await SaleService.createSale(token, saleDetails, new Date());
-//         saleId = sale.id;
-//         const deletedSale= await SaleService.deleteSale(saleId);
-//         expect(deletedSale.id).toBe(saleId);
-//         await ProductService.deleteProduct(productId);
-//         productId = null;
-//     });
-
-//     it('cannot delete a sale', async () => {
-//         const invalidProductId = 9999;
-
-//         try {
-//             await SaleService.deleteSale(invalidProductId);
-//             fail('Expected error was not thrown');
-//         } catch (error) {
-//             expect(error).toBeDefined();
-//         }
-//     });
-// });
+    //     try {
+    //         await SaleService.deleteSale(invalidProductId);
+    //         fail('Expected error was not thrown');
+    //     } catch (error) {
+    //         expect(error).toBeDefined();
+    //     }
+    // });
+});

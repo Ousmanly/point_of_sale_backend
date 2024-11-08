@@ -16,7 +16,6 @@ userRoute.get(
   roleAdminMiddleware,
   UserController.getAllUsers
 );
-// userRoute.get('/users', UserController.getAllUsers)
 userRoute.post(
   '/users',
   authMiddleware,
@@ -43,5 +42,5 @@ userRoute.put('/users/:id/status', UserController.updateUserStatus);
 
 userRoute.post('/request-password-reset', UserController.requestPasswordReset);
 userRoute.post('/reset-password', UserController.resetPassword);
-
+userRoute.put('/user/update', authMiddleware, UserController.updateCurrentUser);
 export default userRoute;

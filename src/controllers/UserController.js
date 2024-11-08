@@ -11,7 +11,6 @@ class UserController {
     const { name, password, role, email, status } = req.body;
     try {
       await UserService.createUser(name, password, role, email, status);
-      // res.status(201).json({message:"user has been created"});
       res.status(201).json({ message: req.t('message.createUser') });
     } catch (error) {
       throw error;
@@ -25,7 +24,6 @@ class UserController {
       const { name, role, email } = req.body;
       try {
         await UserService.updateUser(id, name, role, email);
-        // res.status(201).json({message:"user has been update"});
         res.status(201).json({ message: req.t('message.updateUser') });
       } catch (error) {
         throw error;
@@ -35,8 +33,8 @@ class UserController {
   }
 
   static async updateUserStatus(req, res) {
-    const userId = parseInt(req.params.id, 10); // Récupérer l'ID depuis les paramètres de la requête
-    const { status } = req.body; // Récupérer le statut depuis le corps de la requête
+    const userId = parseInt(req.params.id, 10); 
+    const { status } = req.body; 
 
     try {
       const user = await prisma.user.update({
@@ -54,7 +52,6 @@ class UserController {
     const { id } = req.params;
     try {
       await UserService.deleteUser(parseInt(id));
-      // res.status(200).json({ message: 'user has been deleted'});
       res.status(200).json({ message: req.t('message.deleteUser') });
     } catch (error) {
       res.status(400).json({ message: error.message });
@@ -98,5 +95,18 @@ class UserController {
       res.status(400).json({ message: error.message });
     }
   }
+
+static async updateCurrentUser(req, res, next) {
+    const userId = req.user.id;
+    const { name, email } = req.body; 
+    try {
+      const user = await UserService.updateCurrentUser(userId, { name, email });
+      res.status(200).json({ message: 'Informations mises à jour avec succès', user });
+    } catch (error) {
+      res.status(500).json({ message: 'Erreur lors de la mise à jour des informations', error: error.message });
+    }
+    next();
+  }
+  
 }
 export default UserController;
