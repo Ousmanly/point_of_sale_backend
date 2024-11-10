@@ -38,7 +38,7 @@ supplierRoute.delete(
   SupplierController.deleteSupplier
 );
 supplierRoute.put(
-  '/suppliers/:id/status',
+  '/suppliers/:id/status',roleAdminMiddleware,
   SupplierController.updateSupplierStatus
 );
 

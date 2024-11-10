@@ -22,3 +22,4 @@ saleRoute.delete(
 );
 
 export default saleRoute;
+ saleRoute

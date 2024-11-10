@@ -11,6 +11,7 @@ const receptionRoute = express.Router();
 receptionRoute.get(
   '/receptions',
   authMiddleware,
+  roleAdminMiddleware,
   ReceptionController.getAllReceptions
 );
 receptionRoute.post(

@@ -8,6 +8,7 @@ const inventoryRoute = express.Router();
 inventoryRoute.get(
   '/inventories',
   authMiddleware,
+  roleAdminMiddleware,
   InventoryController.getAllInventories
 );
 // productRoute.get('/products', UserController.getAllUsers)
