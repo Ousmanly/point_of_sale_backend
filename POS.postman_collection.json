@@ -2,908 +2,1070 @@
 	"info": {
 		"_postman_id": "2286395a-33c7-4a1b-8f66-e986e9827a0e",
 		"name": "POS",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "38098533"
 	},
 	"item": [
 		{
-			"name": "getSuplliers",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": {
-						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6Ik91c21hbmUgTHkiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MzEyNDU0MDYsImV4cCI6MTczMTI2MzQwNn0.R4-gs8BOIRhDbYhyUITEV140BHlTKMgWB_Zw7wQazME"
-					}
-				},
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "    {\r\n        \"name\": \"Product 2\",\r\n        \"stock\": 0,\r\n        \"sale_price\": \"150\",\r\n        \"purchase_price\": \"100\",\r\n        \"seuil\": 30,\r\n        \"code_bare\": \"FFG3443R4E\",\r\n        \"status\": false\r\n    }",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "Users",
+			"item": [
+				{
+					"name": "getUsers",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IkFtYWRvdSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTcyOTg3MjI3OSwiZXhwIjoxNzI5ODkwMjc5fQ.-i5aEwzORXX3d91fWtVsO6wgglvDESmRFrzATg81aWs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3005/api/users/?lng=fr",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3005",
+							"path": [
+								"api",
+								"users",
+								""
+							],
+							"query": [
+								{
+									"key": "lng",
+									"value": "fr"
+								}
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:3005/api/suppliers/?lng=fr",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3005",
-					"path": [
-						"api",
-						"suppliers",
-						""
-					],
-					"query": [
-						{
-							"key": "lng",
-							"value": "fr"
+				{
+					"name": "postUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IkFtYWRvdSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTcyOTg3MjI3OSwiZXhwIjoxNzI5ODkwMjc5fQ.-i5aEwzORXX3d91fWtVsO6wgglvDESmRFrzATg81aWs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Updated Supplier\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3005/api/suppliers/?lng=fr",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3005",
+							"path": [
+								"api",
+								"suppliers",
+								""
+							],
+							"query": [
+								{
+									"key": "lng",
+									"value": "fr"
+								}
+							]
 						}
-					]
+					},
+					"response": []
+				},
+				{
+					"name": "deleteUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6Ik91c21hbmUgTHkiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MzEyNDU0MDYsImV4cCI6MTczMTI2MzQwNn0.R4-gs8BOIRhDbYhyUITEV140BHlTKMgWB_Zw7wQazME",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Updated Supplier\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3005/api/users/1?lng=fr",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3005",
+							"path": [
+								"api",
+								"users",
+								"1"
+							],
+							"query": [
+								{
+									"key": "lng",
+									"value": "fr"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "putUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IkFtYWRvdSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTcyOTg3MjI3OSwiZXhwIjoxNzI5ODkwMjc5fQ.-i5aEwzORXX3d91fWtVsO6wgglvDESmRFrzATg81aWs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Updated Supplier\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3005/api/suppliers/1?lng=fr",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3005",
+							"path": [
+								"api",
+								"suppliers",
+								"1"
+							],
+							"query": [
+								{
+									"key": "lng",
+									"value": "fr"
+								}
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "getInventories",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": {
-						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6Ik91c21hbmUgTHkiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MzEyNDU0MDYsImV4cCI6MTczMTI2MzQwNn0.R4-gs8BOIRhDbYhyUITEV140BHlTKMgWB_Zw7wQazME"
-					}
-				},
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "    {\r\n        \"name\": \"Product 2\",\r\n        \"stock\": 0,\r\n        \"sale_price\": \"150\",\r\n        \"purchase_price\": \"100\",\r\n        \"seuil\": 30,\r\n        \"code_bare\": \"FFG3443R4E\",\r\n        \"status\": false\r\n    }",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "Suppliers",
+			"item": [
+				{
+					"name": "getSuplliers",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6Ik91c21hbmUgTHkiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MzEyNDU0MDYsImV4cCI6MTczMTI2MzQwNn0.R4-gs8BOIRhDbYhyUITEV140BHlTKMgWB_Zw7wQazME",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"name\": \"Product 2\",\r\n        \"stock\": 0,\r\n        \"sale_price\": \"150\",\r\n        \"purchase_price\": \"100\",\r\n        \"seuil\": 30,\r\n        \"code_bare\": \"FFG3443R4E\",\r\n        \"status\": false\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3005/api/suppliers/?lng=fr",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3005",
+							"path": [
+								"api",
+								"suppliers",
+								""
+							],
+							"query": [
+								{
+									"key": "lng",
+									"value": "fr"
+								}
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:3005/api/inventories/?lng=fr",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3005",
-					"path": [
-						"api",
-						"inventories",
-						""
-					],
-					"query": [
-						{
-							"key": "lng",
-							"value": "fr"
+				{
+					"name": "postSupplier",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6Ik91c21hbmUgTHkiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MzEyNDU0MDYsImV4cCI6MTczMTI2MzQwNn0.R4-gs8BOIRhDbYhyUITEV140BHlTKMgWB_Zw7wQazME",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Somedi\",\r\n    \"phone\": \"42 92 15 75\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3005/api/suppliers/?lng=fr",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3005",
+							"path": [
+								"api",
+								"suppliers",
+								""
+							],
+							"query": [
+								{
+									"key": "lng",
+									"value": "fr"
+								}
+							]
 						}
-					]
+					},
+					"response": []
+				},
+				{
+					"name": "putSupplier",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6Ik91c21hbmUgTHkiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MzEyNDU0MDYsImV4cCI6MTczMTI2MzQwNn0.R4-gs8BOIRhDbYhyUITEV140BHlTKMgWB_Zw7wQazME",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Mauri Lab\",\r\n    \"phone\": \"34 92 15 75\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3005/api/suppliers/1?lng=fr",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3005",
+							"path": [
+								"api",
+								"suppliers",
+								"1"
+							],
+							"query": [
+								{
+									"key": "lng",
+									"value": "fr"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteSupplier",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IkFtYWRvdSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTcyOTg3MjI3OSwiZXhwIjoxNzI5ODkwMjc5fQ.-i5aEwzORXX3d91fWtVsO6wgglvDESmRFrzATg81aWs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Updated Supplier\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3005/api/suppliers/6?lng=fr",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3005",
+							"path": [
+								"api",
+								"suppliers",
+								"6"
+							],
+							"query": [
+								{
+									"key": "lng",
+									"value": "fr"
+								}
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "getProduct",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": {
-						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IkFtYWRvdSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTcyOTg3MjI3OSwiZXhwIjoxNzI5ODkwMjc5fQ.-i5aEwzORXX3d91fWtVsO6wgglvDESmRFrzATg81aWs"
-					}
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3005/api/suppliers/?lng=fr",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3005",
-					"path": [
-						"api",
-						"suppliers",
-						""
-					],
-					"query": [
-						{
-							"key": "lng",
-							"value": "fr"
+			"name": "Products",
+			"item": [
+				{
+					"name": "getProduct",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IkFtYWRvdSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTcyOTg3MjI3OSwiZXhwIjoxNzI5ODkwMjc5fQ.-i5aEwzORXX3d91fWtVsO6wgglvDESmRFrzATg81aWs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3005/api/suppliers/?lng=fr",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3005",
+							"path": [
+								"api",
+								"suppliers",
+								""
+							],
+							"query": [
+								{
+									"key": "lng",
+									"value": "fr"
+								}
+							]
 						}
-					]
+					},
+					"response": []
+				},
+				{
+					"name": "postProduct",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6Ik91c21hbmUgTHkiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MzEyNDU0MDYsImV4cCI6MTczMTI2MzQwNn0.R4-gs8BOIRhDbYhyUITEV140BHlTKMgWB_Zw7wQazME",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Lunette\",\r\n    \"sale_price\": \"100\",\r\n    \"purchase_price\": \"150\",\r\n    \"seuil\": 10,\r\n    \"code_bare\": \"99MPJ3KLePA\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3005/api/products/?lng=fr",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3005",
+							"path": [
+								"api",
+								"products",
+								""
+							],
+							"query": [
+								{
+									"key": "lng",
+									"value": "fr"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "putProduct",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6Ik91c21hbmUgTHkiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MzEyNDU0MDYsImV4cCI6MTczMTI2MzQwNn0.R4-gs8BOIRhDbYhyUITEV140BHlTKMgWB_Zw7wQazME",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Mauri Lab\",\r\n    \"phone\": \"34 92 15 75\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3005/api/suppliers/1?lng=fr",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3005",
+							"path": [
+								"api",
+								"suppliers",
+								"1"
+							],
+							"query": [
+								{
+									"key": "lng",
+									"value": "fr"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteProduct",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6Ik91c21hbmUgTHkiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MzEyNDU0MDYsImV4cCI6MTczMTI2MzQwNn0.R4-gs8BOIRhDbYhyUITEV140BHlTKMgWB_Zw7wQazME",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3005/api/products/76?lng=fr",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3005",
+							"path": [
+								"api",
+								"products",
+								"76"
+							],
+							"query": [
+								{
+									"key": "lng",
+									"value": "fr"
+								}
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "getMouvements",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": {
-						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IkFtYWRvdSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTcyOTg3MjI3OSwiZXhwIjoxNzI5ODkwMjc5fQ.-i5aEwzORXX3d91fWtVsO6wgglvDESmRFrzATg81aWs"
-					}
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3005/api/suppliers/?lng=fr",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3005",
-					"path": [
-						"api",
-						"suppliers",
-						""
-					],
-					"query": [
-						{
-							"key": "lng",
-							"value": "fr"
+			"name": "Receptions",
+			"item": [
+				{
+					"name": "getReceptions",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6Ik91c21hbmUgTHkiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MzEyNDU0MDYsImV4cCI6MTczMTI2MzQwNn0.R4-gs8BOIRhDbYhyUITEV140BHlTKMgWB_Zw7wQazME",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3005/api/receptions/?lng=fr",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3005",
+							"path": [
+								"api",
+								"receptions",
+								""
+							],
+							"query": [
+								{
+									"key": "lng",
+									"value": "fr"
+								}
+							]
 						}
-					]
+					},
+					"response": []
+				},
+				{
+					"name": "postReception",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6Ik91c21hbmUgTHkiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MzEyNDU0MDYsImV4cCI6MTczMTI2MzQwNn0.R4-gs8BOIRhDbYhyUITEV140BHlTKMgWB_Zw7wQazME",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"recepted_at\": \"2026-10-25T10:51:10.815Z\",\r\n        \"id_supplier\": 1,\r\n        \"receptionDetails\": [\r\n            {\r\n                \"id_product\":75,\r\n                \"quantity\": 400,\r\n                \"price\": \"120\"\r\n            },\r\n            {\r\n                \"id_product\":3,\r\n                \"quantity\": 500,\r\n                \"price\": \"120\"\r\n            }\r\n        ]\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3005/api/receptions/?lng=fr",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3005",
+							"path": [
+								"api",
+								"receptions",
+								""
+							],
+							"query": [
+								{
+									"key": "lng",
+									"value": "fr"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteReception",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6Ik91c21hbmUgTHkiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MzEyNDU0MDYsImV4cCI6MTczMTI2MzQwNn0.R4-gs8BOIRhDbYhyUITEV140BHlTKMgWB_Zw7wQazME",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Updated Supplier\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3005/api/receptions/1?lng=fr",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3005",
+							"path": [
+								"api",
+								"receptions",
+								"1"
+							],
+							"query": [
+								{
+									"key": "lng",
+									"value": "fr"
+								}
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "getReceptions",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": {
-						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6Ik91c21hbmUgTHkiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MzEyNDU0MDYsImV4cCI6MTczMTI2MzQwNn0.R4-gs8BOIRhDbYhyUITEV140BHlTKMgWB_Zw7wQazME"
-					}
-				},
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "Sales",
+			"item": [
+				{
+					"name": "getSales",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6Ik91c21hbmUgTHkiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MzEyNDU0MDYsImV4cCI6MTczMTI2MzQwNn0.R4-gs8BOIRhDbYhyUITEV140BHlTKMgWB_Zw7wQazME",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3005/api/sales/?lng=fr",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3005",
+							"path": [
+								"api",
+								"sales",
+								""
+							],
+							"query": [
+								{
+									"key": "lng",
+									"value": "fr"
+								}
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:3005/api/receptions/?lng=fr",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3005",
-					"path": [
-						"api",
-						"receptions",
-						""
-					],
-					"query": [
-						{
-							"key": "lng",
-							"value": "fr"
+				{
+					"name": "postSale",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6Ik91c21hbmUgTHkiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MzEyNDU0MDYsImV4cCI6MTczMTI2MzQwNn0.R4-gs8BOIRhDbYhyUITEV140BHlTKMgWB_Zw7wQazME",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"sale_at\": \"2024-11-07T00:00:00.000Z\",\r\n    \"name\": \"Amadou\",\r\n    \"email\": \"amd@gmail.com\",\r\n    \"phone\": \"34 45 65 34\",\r\n    \"saleDetails\": [\r\n        {\r\n            \"id_product\": 2,\r\n            \"sale_quantity\": 1,\r\n            \"price\": \"120\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3005/api/sales/?lng=fr",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3005",
+							"path": [
+								"api",
+								"sales",
+								""
+							],
+							"query": [
+								{
+									"key": "lng",
+									"value": "fr"
+								}
+							]
 						}
-					]
+					},
+					"response": []
+				},
+				{
+					"name": "deleteSale",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6Ik91c21hbmUgTHkiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MzEyNDU0MDYsImV4cCI6MTczMTI2MzQwNn0.R4-gs8BOIRhDbYhyUITEV140BHlTKMgWB_Zw7wQazME",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Updated Supplier\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3005/api/sales/13?lng=fr",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3005",
+							"path": [
+								"api",
+								"sales",
+								"13"
+							],
+							"query": [
+								{
+									"key": "lng",
+									"value": "fr"
+								}
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "getUsers",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": {
-						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IkFtYWRvdSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTcyOTg3MjI3OSwiZXhwIjoxNzI5ODkwMjc5fQ.-i5aEwzORXX3d91fWtVsO6wgglvDESmRFrzATg81aWs"
-					}
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3005/api/users/?lng=fr",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3005",
-					"path": [
-						"api",
-						"users",
-						""
-					],
-					"query": [
-						{
-							"key": "lng",
-							"value": "fr"
+			"name": "Inventories",
+			"item": [
+				{
+					"name": "getInventories",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6Ik91c21hbmUgTHkiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MzEyNDU0MDYsImV4cCI6MTczMTI2MzQwNn0.R4-gs8BOIRhDbYhyUITEV140BHlTKMgWB_Zw7wQazME",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"name\": \"Product 2\",\r\n        \"stock\": 0,\r\n        \"sale_price\": \"150\",\r\n        \"purchase_price\": \"100\",\r\n        \"seuil\": 30,\r\n        \"code_bare\": \"FFG3443R4E\",\r\n        \"status\": false\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3005/api/inventories/?lng=fr",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3005",
+							"path": [
+								"api",
+								"inventories",
+								""
+							],
+							"query": [
+								{
+									"key": "lng",
+									"value": "fr"
+								}
+							]
 						}
-					]
+					},
+					"response": []
+				},
+				{
+					"name": "postInventory",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6Ik91c21hbmUgTHkiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MzEyNDU0MDYsImV4cCI6MTczMTI2MzQwNn0.R4-gs8BOIRhDbYhyUITEV140BHlTKMgWB_Zw7wQazME",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"remarque\": \"Inventory test\",\r\n    \"quantity\": 10,\r\n    \"id_product\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3005/api/inventories/?lng=fr",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3005",
+							"path": [
+								"api",
+								"inventories",
+								""
+							],
+							"query": [
+								{
+									"key": "lng",
+									"value": "fr"
+								}
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "getSales",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": {
-						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6Ik91c21hbmUgTHkiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MzEyNDU0MDYsImV4cCI6MTczMTI2MzQwNn0.R4-gs8BOIRhDbYhyUITEV140BHlTKMgWB_Zw7wQazME"
-					}
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3005/api/sales/?lng=fr",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3005",
-					"path": [
-						"api",
-						"sales",
-						""
-					],
-					"query": [
-						{
-							"key": "lng",
-							"value": "fr"
+			"name": "Movements",
+			"item": [
+				{
+					"name": "getMouvements",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IkFtYWRvdSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTcyOTg3MjI3OSwiZXhwIjoxNzI5ODkwMjc5fQ.-i5aEwzORXX3d91fWtVsO6wgglvDESmRFrzATg81aWs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3005/api/suppliers/?lng=fr",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3005",
+							"path": [
+								"api",
+								"suppliers",
+								""
+							],
+							"query": [
+								{
+									"key": "lng",
+									"value": "fr"
+								}
+							]
 						}
-					]
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "login",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"email\": \"abderahmanethimbo@gmail.com\",\r\n    \"pass_word\": \"amadou\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "Authentification",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"abderahmanethimbo@gmail.com\",\r\n    \"pass_word\": \"amadou\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3005/api/login/?lng=fr",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3005",
+							"path": [
+								"api",
+								"login",
+								""
+							],
+							"query": [
+								{
+									"key": "lng",
+									"value": "fr"
+								}
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:3005/api/login/?lng=fr",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3005",
-					"path": [
-						"api",
-						"login",
-						""
-					],
-					"query": [
-						{
-							"key": "lng",
-							"value": "fr"
+				{
+					"name": "changePassword",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6Ik91c21hbmUgTHkiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MzEyNDU0MDYsImV4cCI6MTczMTI2MzQwNn0.R4-gs8BOIRhDbYhyUITEV140BHlTKMgWB_Zw7wQazME",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Somedi\",\r\n    \"phone\": \"42 92 15 75\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3005/api/suppliers/?lng=fr",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3005",
+							"path": [
+								"api",
+								"suppliers",
+								""
+							],
+							"query": [
+								{
+									"key": "lng",
+									"value": "fr"
+								}
+							]
 						}
-					]
+					},
+					"response": []
 				}
-			},
-			"response": []
-		},
-		{
-			"name": "postSupplier",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": {
-						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6Ik91c21hbmUgTHkiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MzEyNDU0MDYsImV4cCI6MTczMTI2MzQwNn0.R4-gs8BOIRhDbYhyUITEV140BHlTKMgWB_Zw7wQazME"
-					}
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Somedi\",\r\n    \"phone\": \"42 92 15 75\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:3005/api/suppliers/?lng=fr",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3005",
-					"path": [
-						"api",
-						"suppliers",
-						""
-					],
-					"query": [
-						{
-							"key": "lng",
-							"value": "fr"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "postInventory",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": {
-						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6Ik91c21hbmUgTHkiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MzEyNDU0MDYsImV4cCI6MTczMTI2MzQwNn0.R4-gs8BOIRhDbYhyUITEV140BHlTKMgWB_Zw7wQazME"
-					}
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"remarque\": \"Inventory test\",\r\n    \"quantity\": 10,\r\n    \"id_product\": 1\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:3005/api/inventories/?lng=fr",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3005",
-					"path": [
-						"api",
-						"inventories",
-						""
-					],
-					"query": [
-						{
-							"key": "lng",
-							"value": "fr"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "postProduct",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": {
-						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6Ik91c21hbmUgTHkiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MzEyNDU0MDYsImV4cCI6MTczMTI2MzQwNn0.R4-gs8BOIRhDbYhyUITEV140BHlTKMgWB_Zw7wQazME"
-					}
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Lunette\",\r\n    \"sale_price\": \"100\",\r\n    \"purchase_price\": \"150\",\r\n    \"seuil\": 10,\r\n    \"code_bare\": \"99MPJ3KLePA\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:3005/api/products/?lng=fr",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3005",
-					"path": [
-						"api",
-						"products",
-						""
-					],
-					"query": [
-						{
-							"key": "lng",
-							"value": "fr"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "postReception",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": {
-						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6Ik91c21hbmUgTHkiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MzEyNDU0MDYsImV4cCI6MTczMTI2MzQwNn0.R4-gs8BOIRhDbYhyUITEV140BHlTKMgWB_Zw7wQazME"
-					}
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "    {\r\n        \"recepted_at\": \"2026-10-25T10:51:10.815Z\",\r\n        \"id_supplier\": 1,\r\n        \"receptionDetails\": [\r\n            {\r\n                \"id_product\":75,\r\n                \"quantity\": 400,\r\n                \"price\": \"120\"\r\n            },\r\n            {\r\n                \"id_product\":3,\r\n                \"quantity\": 500,\r\n                \"price\": \"120\"\r\n            }\r\n        ]\r\n    }",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:3005/api/receptions/?lng=fr",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3005",
-					"path": [
-						"api",
-						"receptions",
-						""
-					],
-					"query": [
-						{
-							"key": "lng",
-							"value": "fr"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "postUser",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": {
-						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IkFtYWRvdSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTcyOTg3MjI3OSwiZXhwIjoxNzI5ODkwMjc5fQ.-i5aEwzORXX3d91fWtVsO6wgglvDESmRFrzATg81aWs"
-					}
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Updated Supplier\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:3005/api/suppliers/?lng=fr",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3005",
-					"path": [
-						"api",
-						"suppliers",
-						""
-					],
-					"query": [
-						{
-							"key": "lng",
-							"value": "fr"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "postSale",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": {
-						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6Ik91c21hbmUgTHkiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MzEyNDU0MDYsImV4cCI6MTczMTI2MzQwNn0.R4-gs8BOIRhDbYhyUITEV140BHlTKMgWB_Zw7wQazME"
-					}
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"sale_at\": \"2024-11-07T00:00:00.000Z\",\r\n    \"name\": \"Amadou\",\r\n    \"email\": \"amd@gmail.com\",\r\n    \"phone\": \"34 45 65 34\",\r\n    \"saleDetails\": [\r\n        {\r\n            \"id_product\": 2,\r\n            \"sale_quantity\": 1,\r\n            \"price\": \"120\"\r\n        }\r\n    ]\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:3005/api/sales/?lng=fr",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3005",
-					"path": [
-						"api",
-						"sales",
-						""
-					],
-					"query": [
-						{
-							"key": "lng",
-							"value": "fr"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "putUser",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": {
-						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IkFtYWRvdSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTcyOTg3MjI3OSwiZXhwIjoxNzI5ODkwMjc5fQ.-i5aEwzORXX3d91fWtVsO6wgglvDESmRFrzATg81aWs"
-					}
-				},
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Updated Supplier\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:3005/api/suppliers/1?lng=fr",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3005",
-					"path": [
-						"api",
-						"suppliers",
-						"1"
-					],
-					"query": [
-						{
-							"key": "lng",
-							"value": "fr"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "putSupplier",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": {
-						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6Ik91c21hbmUgTHkiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MzEyNDU0MDYsImV4cCI6MTczMTI2MzQwNn0.R4-gs8BOIRhDbYhyUITEV140BHlTKMgWB_Zw7wQazME"
-					}
-				},
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Mauri Lab\",\r\n    \"phone\": \"34 92 15 75\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:3005/api/suppliers/1?lng=fr",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3005",
-					"path": [
-						"api",
-						"suppliers",
-						"1"
-					],
-					"query": [
-						{
-							"key": "lng",
-							"value": "fr"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "putProduct",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": {
-						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6Ik91c21hbmUgTHkiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MzEyNDU0MDYsImV4cCI6MTczMTI2MzQwNn0.R4-gs8BOIRhDbYhyUITEV140BHlTKMgWB_Zw7wQazME"
-					}
-				},
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Mauri Lab\",\r\n    \"phone\": \"34 92 15 75\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:3005/api/suppliers/1?lng=fr",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3005",
-					"path": [
-						"api",
-						"suppliers",
-						"1"
-					],
-					"query": [
-						{
-							"key": "lng",
-							"value": "fr"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "deleteUser",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": {
-						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6Ik91c21hbmUgTHkiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MzEyNDU0MDYsImV4cCI6MTczMTI2MzQwNn0.R4-gs8BOIRhDbYhyUITEV140BHlTKMgWB_Zw7wQazME"
-					}
-				},
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Updated Supplier\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:3005/api/users/1?lng=fr",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3005",
-					"path": [
-						"api",
-						"users",
-						"1"
-					],
-					"query": [
-						{
-							"key": "lng",
-							"value": "fr"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "deleteSale",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": {
-						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6Ik91c21hbmUgTHkiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MzEyNDU0MDYsImV4cCI6MTczMTI2MzQwNn0.R4-gs8BOIRhDbYhyUITEV140BHlTKMgWB_Zw7wQazME"
-					}
-				},
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Updated Supplier\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:3005/api/sales/13?lng=fr",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3005",
-					"path": [
-						"api",
-						"sales",
-						"13"
-					],
-					"query": [
-						{
-							"key": "lng",
-							"value": "fr"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "deleteReception",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": {
-						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6Ik91c21hbmUgTHkiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MzEyNDU0MDYsImV4cCI6MTczMTI2MzQwNn0.R4-gs8BOIRhDbYhyUITEV140BHlTKMgWB_Zw7wQazME"
-					}
-				},
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Updated Supplier\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:3005/api/receptions/1?lng=fr",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3005",
-					"path": [
-						"api",
-						"receptions",
-						"1"
-					],
-					"query": [
-						{
-							"key": "lng",
-							"value": "fr"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "deleteSupplier",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": {
-						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IkFtYWRvdSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTcyOTg3MjI3OSwiZXhwIjoxNzI5ODkwMjc5fQ.-i5aEwzORXX3d91fWtVsO6wgglvDESmRFrzATg81aWs"
-					}
-				},
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Updated Supplier\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:3005/api/suppliers/6?lng=fr",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3005",
-					"path": [
-						"api",
-						"suppliers",
-						"6"
-					],
-					"query": [
-						{
-							"key": "lng",
-							"value": "fr"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "deleteProduct",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": {
-						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6Ik91c21hbmUgTHkiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MzEyNDU0MDYsImV4cCI6MTczMTI2MzQwNn0.R4-gs8BOIRhDbYhyUITEV140BHlTKMgWB_Zw7wQazME"
-					}
-				},
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:3005/api/products/76?lng=fr",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3005",
-					"path": [
-						"api",
-						"products",
-						"76"
-					],
-					"query": [
-						{
-							"key": "lng",
-							"value": "fr"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "getReceptions",
-			"request": {
-				"method": "GET",
-				"header": []
-			},
-			"response": []
+			]
 		}
 	]
 }

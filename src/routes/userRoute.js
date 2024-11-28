@@ -1,6 +1,6 @@
 import express from 'express';
 import authMiddleware from '../middlewares/authMiddleware.js';
-import UserController from '../controllers/userController.js';
+import UserController from '../controllers/UserController.js';
 import {
   addRequestUserValidator,
   deleteUserValidatore,
@@ -43,4 +43,5 @@ userRoute.put('/users/:id/status', UserController.updateUserStatus);
 userRoute.post('/request-password-reset', UserController.requestPasswordReset);
 userRoute.post('/reset-password', UserController.resetPassword);
 userRoute.put('/user/update', authMiddleware, UserController.updateCurrentUser);
+userRoute.put('/user/change-password', authMiddleware, UserController.changePassword);
 export default userRoute;

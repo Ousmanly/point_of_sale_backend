@@ -26,6 +26,8 @@ const addSaleValidator = [
   check('name')
     .isLength({ min: 3 })
     .withMessage('Name must be at least 4 characters long!')
+    .isLength({ max: 100 })
+    .withMessage('Name must be maximum of 100 characters long!')
     .bail(),
   check('saleDetails.*.sale_quantity')
     .not()

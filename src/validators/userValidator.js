@@ -14,7 +14,9 @@ const addRequestUserValidator = [
     .withMessage("name can't be a number!")
     .bail()
     .isLength({ min: 3 })
-    .withMessage('name must be at least 3 characters long!')
+    .withMessage('Name must be at least 3 characters long!')
+    .isLength({ max: 100 })
+    .withMessage('Name must be maximum of 100 characters long!')
     .bail(),
   check('password')
     .not()
@@ -22,7 +24,9 @@ const addRequestUserValidator = [
     .withMessage('pass word is required!')
     .bail()
     .isLength({ min: 4 })
-    .withMessage('pass word must be at least 4 characters long!')
+    .withMessage('Pass word must be at least 4 characters long!')
+    .isLength({ max: 100 })
+    .withMessage('Pass word must be maximum of 100 characters long!')
     .bail(),
   check('role')
     .optional()
@@ -67,6 +71,8 @@ const updateUserValidatore = [
     .isInt()
     .withMessage('Id must be a number!')
     .bail()
+    .isLength({ max: 100 })
+    .withMessage('Name must be maximum of 100 characters long!')
     .custom(async (value) => {
       const id = parseInt(value);
       const idExists = await UserService.checkUserById(id);

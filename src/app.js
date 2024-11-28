@@ -19,7 +19,7 @@ const app = express();
 
 config();
 const corsOptions = {
-  origin: 'http://localhost:5174', // Origine de votre frontend
+  origin: 'http://localhost:5173', // Origine de votre frontend
   // methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Autorise les méthodes nécessaires
   // credentials: true,
   // allowedHeaders: ['Content-Type', 'Authorization'],

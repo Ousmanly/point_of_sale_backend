@@ -43,7 +43,7 @@ class ProductController {
     const token = req.headers['authorization'].split(' ')[1];
     const id = Number(req.params.id);
     if (id) {
-      const { name, price, sale_price, purchase_price, seuil, code_bare } =
+      const { name, sale_price, purchase_price, seuil, code_bare } =
         req.body;
       try {
         await ProductService.updateProduct(

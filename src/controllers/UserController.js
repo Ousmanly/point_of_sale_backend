@@ -1,4 +1,6 @@
 import prisma from '../config/prisma.js';
+import bcrypt from 'bcrypt';
+
 import UserService from '../services/UserService.js';
 
 class UserController {
@@ -96,7 +98,7 @@ class UserController {
     }
   }
 
-static async updateCurrentUser(req, res, next) {
+  static async updateCurrentUser(req, res, next) {
     const userId = req.user.id;
     const { name, email } = req.body; 
     try {
@@ -108,5 +110,53 @@ static async updateCurrentUser(req, res, next) {
     next();
   }
   
+  static async changePassword(req, res) {
+    const userId = req.user.id; // ID de l'utilisateur, généralement passé par le middleware d'authentification
+    const { currentPassword, newPassword } = req.body; // Mot de passe actuel et nouveau mot de passe
+  
+    try {
+      // Trouver l'utilisateur dans la base de données
+      const user = await prisma.user.findUnique({
+        where: { id: userId },
+      });
+  
+      if (!user) {
+        return res.status(404).json({ message: "User not found." });
+      }
+  
+      // Comparer le mot de passe actuel avec celui en base de données
+      const isPasswordCorrect = await bcrypt.compare(
+        currentPassword,
+        user.password
+      );
+      if (!isPasswordCorrect) {
+        return res
+          .status(400)
+          .json({ message: "Current password is incorrect." });
+      }
+  
+      // Hasher le nouveau mot de passe
+      const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+  
+      // Mettre à jour le mot de passe dans la base de données
+      const updatedUser = await prisma.user.update({
+        where: { id: userId },
+        data: { password: hashedNewPassword },
+      });
+  
+      res.status(200).json({
+        message: "Password updated successfully.",
+        // user: {
+        //   id: updatedUser.id,
+        //   name: updatedUser.name,
+        //   email: updatedUser.email,
+        // },
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Error changing password." });
+    }
+  };
 }
+
 export default UserController;

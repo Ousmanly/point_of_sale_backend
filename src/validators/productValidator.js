@@ -13,24 +13,46 @@ const addRequestProductValidator = [
     .withMessage("name can't be a number!")
     .bail()
     .isLength({ min: 3 })
-    .withMessage('name must be at least 3 characters long!')
+    .withMessage('Name must be at least 3 characters long!')
+    .isLength({ max: 100 })
+    .withMessage('Name must be maximum of 100 characters long!')
     .bail(),
   check('sale_price')
     .not()
     .isEmpty()
     .withMessage('sale_price is required!')
-    .bail(),
+    .bail()
+    .matches(/^\d+(\.\d{1,2})?$/)
+    .withMessage('Sale price must be a valid number with up to two decimal places!')
+    .bail()
+    .custom(value => {
+      if (parseFloat(value) > 99999999.99) {
+        throw new Error('Maximum sale price is 99,999,999.99');
+      }
+      return true;
+    }),
   check('purchase_price')
     .not()
     .isEmpty()
     .withMessage('purchase_price is required!')
-    .bail(),
+    .bail()
+    .matches(/^\d+(\.\d{1,2})?$/)
+    .withMessage('Purchase price must be a valid number with up to two decimal places!')
+    .bail()
+    .custom(value => {
+      if (parseFloat(value) > 99999999.99) {
+        throw new Error('Maximum purchase price is 99,999,999.99');
+      }
+      return true;
+    }),
   check('seuil').not().isEmpty().withMessage('seuil is required!').bail(),
   check('code_bare')
     .not()
     .isEmpty()
     .withMessage('code_bare is required!')
     .bail()
+    .isLength({ max: 100 })
+    .withMessage('Barcode must be maximum of 100 characters long!')
     .custom(async (value) => {
       const codeBareExists = await ProductService.checkProduct(value);
       if (codeBareExists) {
@@ -74,18 +96,38 @@ const updateProductValidatore = [
     .withMessage("name can't be a number!")
     .bail()
     .isLength({ min: 3 })
-    .withMessage('name must be at least 3 characters long!')
+    .withMessage('Name must be at least 3 characters long!')
+    .isLength({ max: 100 })
+    .withMessage('Name must be maximum of 100 characters long!')
     .bail(),
   check('sale_price')
     .not()
     .isEmpty()
     .withMessage('sale_price is required!')
-    .bail(),
+    .bail()
+    .matches(/^\d+(\.\d{1,2})?$/)
+    .withMessage('Sale price must be a valid number with up to two decimal places!')
+    .bail()
+    .custom(value => {
+      if (parseFloat(value) > 99999999.99) {
+        throw new Error('Maximum purchase price is 99,999,999.99');
+      }
+      return true;
+    }),
   check('purchase_price')
     .not()
     .isEmpty()
     .withMessage('purchase_price is required!')
-    .bail(),
+    .bail()
+    .matches(/^\d+(\.\d{1,2})?$/)
+    .withMessage('Purchase price must be a valid number with up to two decimal places!')
+    .bail()
+    .custom(value => {
+      if (parseFloat(value) > 99999999.99) {
+        throw new Error('Maximum purchase price is 99,999,999.99');
+      }
+      return true;
+    }),
   check('seuil').not().isEmpty().withMessage('seuil is required!').bail(),
   check('code_bare')
     .not()
@@ -95,6 +137,8 @@ const updateProductValidatore = [
     .isLength({ min: 4 })
     .withMessage('code_bare must be at least 4 characters long!')
     .bail()
+    .isLength({ max: 100 })
+    .withMessage('Barcode must be maximum of 100 characters long!')
     .custom(async (value, { req }) => {
       const id = req.params.id;
       const result = await ProductService.checkProduct(value, parseInt(id));

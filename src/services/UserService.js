@@ -188,7 +188,7 @@ class UserService {
     const token = jwt.sign({ id: user.id }, JWT_SECRET, {
       expiresIn: JWT_EXPIRATION,
     });
-    const resetUrl = `http://localhost:5174/reset-password?token=${token}`;
+    const resetUrl = `http://localhost:5173/reset-password?token=${token}`;
 
     const mailOptions = {
       from: EMAIL_USER,

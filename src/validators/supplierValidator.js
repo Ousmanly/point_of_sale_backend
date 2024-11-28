@@ -14,7 +14,9 @@ const addRequestSupplierValidator = [
     .withMessage("name can't be a number!")
     .bail()
     .isLength({ min: 3 })
-    .withMessage('name must be at least 3 characters long!')
+    .withMessage('Name must be at least 3 characters long!')
+    .isLength({ max: 100 })
+    .withMessage('Name must be maximum of 100 characters long!')
     .bail(),
   check('phone')
     .not()
@@ -69,6 +71,8 @@ const updateSupplierValidatore = [
     .bail()
     .isLength({ min: 3 })
     .withMessage('name must be at least 3 characters long!')
+    .isLength({ max: 100 })
+    .withMessage('Name must be maximum of 100 characters long!')
     .bail(),
   check('phone')
     .not()

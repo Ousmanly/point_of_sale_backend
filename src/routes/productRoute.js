@@ -9,7 +9,7 @@ import {
 import roleAdminMiddleware from '../middlewares/roleAdminMiddlewares.js';
 const productRoute = express.Router();
 
-productRoute.get('/products', authMiddleware,roleAdminMiddleware, ProductController.getAllProducts);
+productRoute.get('/products', authMiddleware, ProductController.getAllProducts);
 // productRoute.get('/products', UserController.getAllUsers)
 productRoute.post(
   '/products',
