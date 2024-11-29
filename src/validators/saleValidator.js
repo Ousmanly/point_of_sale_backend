@@ -37,6 +37,12 @@ const addSaleValidator = [
     .isInt({ min: 1 })
     .withMessage('Quantity must be a number greater than zero')
     .bail(),
+  check('phone')
+    .isLength({ max: 50 })
+    .withMessage('Phone must be maximum of 50 characters long!')
+    .isLength({ min: 8 })
+    .withMessage('Phone must be at least 8 characters long!')
+    .bail(),
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

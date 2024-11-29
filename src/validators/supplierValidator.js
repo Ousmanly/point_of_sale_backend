@@ -24,7 +24,11 @@ const addRequestSupplierValidator = [
     .withMessage('name is required!')
     .bail()
     .isString()
-    .withMessage('phone number must be a string!')
+    .withMessage('Phone number must be a string!')
+    .isLength({ max: 50 })
+    .withMessage('Phone must be maximum of 50 characters long!')
+    .isLength({ min: 8 })
+    .withMessage('Phone must be at least 8 characters long!')
     .bail()
     .custom(async (value) => {
       const emailExists = await SupplierService.checkSupplier(value);
@@ -81,6 +85,10 @@ const updateSupplierValidatore = [
     .bail()
     .isString()
     .withMessage('phone number must be a string!')
+    .isLength({ max: 50 })
+    .withMessage('Phone must be maximum of 50 characters long!')
+    .isLength({ min: 8 })
+    .withMessage('Phone must be at least 8 characters long!')
     .bail()
     .custom(async (value, { req }) => {
       const id = req.params.id;
