@@ -18,12 +18,28 @@ import mouvementRoute from './routes/mouvementRoute.js';
 const app = express();
 
 config();
+// const corsOptions = {
+//   origin: 'http://localhost:5173', // Origine de votre frontend
+//   // methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Autorise les méthodes nécessaires
+//   // credentials: true,
+//   // allowedHeaders: ['Content-Type', 'Authorization'],
+//   optionSuccessStatus: 200,
+// };
+const allowedOrigins = ['http://localhost:5173', 'https://pos-frontend-livid.vercel.app'];
+
 const corsOptions = {
-  origin: 'http://localhost:5173', // Origine de votre frontend
-  // methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Autorise les méthodes nécessaires
-  // credentials: true,
-  // allowedHeaders: ['Content-Type', 'Authorization'],
-  optionSuccessStatus: 200,
+  origin: (origin, callback) => {
+    
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], 
+  credentials: true, 
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  optionsSuccessStatus: 200, 
 };
 app.use(cors(corsOptions));
 
